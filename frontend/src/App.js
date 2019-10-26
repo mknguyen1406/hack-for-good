@@ -38,11 +38,12 @@ class App extends React.Component {
         });
     }
 
-    insertCallback()
+    insertCallback(value)
     {
-        console.log(this.state.insert);
-        this.state.insert = 1
-        console.log(this.state.insert);
+        this.setState({
+            currentID: this.state.currentID,
+            insert: value
+        });
     }
 
     render()
@@ -54,7 +55,7 @@ class App extends React.Component {
                     <Container maxWidth="lg">
                         <Grid container spacing={10}>
                             <Grid item xs={12}>
-                                <Header name={"Marius"}/>
+                                <Header name={"Marius"} />
                             </Grid>
                         </Grid>
 
@@ -83,7 +84,7 @@ class App extends React.Component {
                                                 <AccessAlarms />
                                             </Avatar>
                                         </ListItemAvatar>
-                                        <ListItemText primary="AccessAlarms" secondary="9. Jan 2019" />
+                                        <ListItemText primary="2. Prognose fällig" secondary="9. Jan 2019" />
                                     </ListItem>
                                     <ListItem>
                                         <ListItemAvatar>
@@ -91,7 +92,7 @@ class App extends React.Component {
                                                 <AccessAlarms />
                                             </Avatar>
                                         </ListItemAvatar>
-                                        <ListItemText primary="AccessAlarms" secondary="7. Jan 2019" />
+                                        <ListItemText primary="3. Prognose fällig" secondary="7. Jan 2019" />
                                     </ListItem>
                                     <ListItem>
                                         <ListItemAvatar>
@@ -99,7 +100,7 @@ class App extends React.Component {
                                                 <AccessAlarms />
                                             </Avatar>
                                         </ListItemAvatar>
-                                        <ListItemText primary="AccessAlarms" secondary="20. July 2019" />
+                                        <ListItemText primary="4. Prognose fällig" secondary="20. July 2019" />
                                     </ListItem>
                                     <ListItem>
                                         <ListItemAvatar>
@@ -107,7 +108,7 @@ class App extends React.Component {
                                                 <AccessAlarms />
                                             </Avatar>
                                         </ListItemAvatar>
-                                        <ListItemText primary="AccessAlarms" secondary="14. August 2019" />
+                                        <ListItemText primary="5. Prognose fällig" secondary="14. August 2019" />
                                     </ListItem>
                                 </List>
                             </Grid>
