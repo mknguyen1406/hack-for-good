@@ -3,37 +3,26 @@ import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
 import {Link} from 'react-router-dom';
 
+const API_URL = "http://127.0.0.1:5000/pupils?fellow_id=1";
+
 class Pupils extends React.Component
 {
     constructor(props) {
         super(props);
         this.state = {
-            users: [
-                {"id" : 1, "name" : "Test1"},
-                {"id" : 1, "name" : "Test1"},
-                {"id" : 1, "name" : "Test1"},
-                {"id" : 1, "name" : "Test1"},
-                {"id" : 1, "name" : "Test1"},
-            ]
+            users: []
         };
+        this.fetchUserData();
     }
 
-    componentDidMount()
+    fetchUserData()
     {
-
-        /*fetch(new URL('init', "HIER MUSS EIN API CALL REIN")).then(res => res.json())
-            .then((data => this.setState({
-                                    users: data.users
-                                    })
-            ));*/
+        fetch(new URL(API_URL)).then(res => res.json())
+            .then(data => console.log(data)).then(console.log(this.state.users));
     }
-
-    componentWillUnmount()
-    {}
 
     render()
     {
-
         return (
             <Grid container spacing={2}>
                 <Grid item lg={12}>
