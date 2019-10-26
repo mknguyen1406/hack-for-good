@@ -5,6 +5,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Icon from '@material-ui/core/Icon';
 import Typography from '@material-ui/core/Typography';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import {Link} from 'react-router-dom';
 
 
 const useStyles = makeStyles(theme => ({
@@ -23,6 +24,9 @@ const useStyles = makeStyles(theme => ({
             display: 'flex',
         },
     },
+    title_name: {
+
+    },
 }));
 
 function Header(props) {
@@ -32,7 +36,9 @@ function Header(props) {
             <AppBar position="static">
                 <Toolbar>
                     <Typography className={classes.title} variant="h6" noWrap>
-                        Herzlich Willkommen {props.name}!
+                        <Link to="/" underline={"none"} className={classes.title_name}>
+                            Herzlich Willkommen {props.name}!
+                        </Link>
                     </Typography>
                     <div className={classes.grow} />
                     <div className={classes.sectionDesktop}>
