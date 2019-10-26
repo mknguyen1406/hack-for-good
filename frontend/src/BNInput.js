@@ -45,7 +45,7 @@ class BNInput extends React.Component {
         this.choicesGeR = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
         // TODO display elaborate category description of LKM
         this.choicesLKM = ['Stufe 1 (destruktiv)', 'Stufe 2 (apathisch)', 'Stufe 3 (zielgerichtet)', 'Stufe 4 (eigenmotiviert)', 'Stufe 5 (außergewöhnlich)'];
-        this.choicesBinaryn = ['Ja', 'Nein'];   // TODO allow no selection (optional)
+        this.choicesBinaryn = ['Nein', 'Ja'];   // TODO allow no selection (optional)
         this.choicesPrognosis = ['A', 'B', 'C', 'D'];
 
         //this.dates = ['1 | Beginn 1. SJ', '2 | Halbjahr 1. SJ', '3 | Ende 1. SJ/Anfang 2. SJ', '4 | Halbjahr 2. SJ', '5 | Ende 2. SJ'];
@@ -66,6 +66,7 @@ class BNInput extends React.Component {
             this.socialBehavior.forEach(s => this.state[s.name] = s.choices[Math.floor(Math.random() * s.choices.length)]);
             this.learningBehavior.forEach(s => this.state[s.name] = s.choices[Math.floor(Math.random() * s.choices.length)]);
             this.prognosis.forEach(s => this.state[s.name] = s.choices[Math.floor(Math.random() * s.choices.length)]);
+            this.state["Noch aktiv"] = this.choicesBinaryn[Math.floor(Math.random() * 2)];
         } else
         {
             this.mainSubjects.forEach(s => this.state[s] = '');
@@ -73,6 +74,7 @@ class BNInput extends React.Component {
             this.socialBehavior.forEach(s => this.state[s.name] = '');
             this.learningBehavior.forEach(s => this.state[s.name] = '');
             this.prognosis.forEach(s => this.state[s.name] = '');
+            this.state["Noch aktiv"] = '';
         }
         this.state['date'] = 1;
     }
@@ -119,7 +121,8 @@ class BNInput extends React.Component {
             "fehlzeiten": this.state['Fehlzeiten (Tage / Stunden… wichtig ist Einheitlichkeit)'],
             "berufsorientierung_state": this.state['hat an berufsorientierenden Maßnahmen teilgenommen (Häufigkeit + Art)'],
             "berufsorientierung_comment": this.state['Kommentar zu Berufsorientierung'],
-            "uebergangsprognose": this.indexIn1D(this.state['Prognose'], this.choicesPrognosis)
+            "uebergangsprognose": this.indexIn1D(this.state['Prognose'], this.choicesPrognosis),
+            "active": this.indexIn1D(this.state['Noch aktiv'], this.choicesBinaryn) - 1
         };
 
         console.log(convertedState);
@@ -173,6 +176,8 @@ class BNInput extends React.Component {
                     <MenuItem value={5}>5 | Ende 2. SJ</MenuItem>
                 </Select>
                 </div>
+
+                <BNInputComp value={this.state["Noch aktiv"]} name={"Noch aktiv"} type={"select"} options={this.choicesBinaryn} handleChange={this.handleChangeComp}/>
 
                 <h3 style={subTitleMargin}>Leistungen in den Hautpfächern</h3>
                 <table><tbody>
