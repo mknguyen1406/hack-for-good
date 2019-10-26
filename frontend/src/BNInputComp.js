@@ -9,6 +9,20 @@ import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import styles from './App.css';
 import BNInput from "./BNInput";
+import { styled } from '@material-ui/core/styles';
+
+
+const MyTextField = styled(TextField)({
+    float: "left",
+    marginTop: "0"
+});
+
+
+const label = {
+    float: "left",
+    textAlign: "left",
+    marginRight: "10px"
+};
 
 
 
@@ -22,8 +36,8 @@ class BNInputComp extends React.Component {
     render() {
         if (this.props.type === 'freetext') {
             return <tr>
-                <td><span>{this.props.name}</span></td>
-                <td><TextField
+                <td><span style={label}>{this.props.name}</span></td>
+                <td><MyTextField
                     id={this.props.name}
                     onChange={(event => this.props.handleChange(this.props.name, event.target.value))}
                     margin="normal"
@@ -32,8 +46,8 @@ class BNInputComp extends React.Component {
             </tr>
         } if (this.props.type === 'number') {
             return <tr>
-                <td><span>{this.props.name}</span></td>
-                <td><TextField
+                <td><span style={label}>{this.props.name}</span></td>
+                <td><MyTextField
                     id={this.props.name}
                     type="number"
                     onChange={(event => this.props.handleChange(this.props.name, event.target.value))}
@@ -43,7 +57,7 @@ class BNInputComp extends React.Component {
             </tr>
         } else if (this.props.type === 'select') {
             return <tr>
-                <td><span>{this.props.name}</span></td>
+                <td><span style={label}>{this.props.name}</span></td>
                 <td><Select inputProps={{value: this.props.value}} onChange={(event => this.props.handleChange(this.props.name, event.target.value))} style={{minWidth: 200}}>
                     {this.props.options.map((name) =>
                     <MenuItem key={name} value={name}>{name}</MenuItem>
