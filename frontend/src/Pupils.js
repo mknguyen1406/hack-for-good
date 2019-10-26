@@ -13,10 +13,14 @@ class Pupils extends React.Component
             users: []
         };
 
-        fetch(new URL(API_URL)).then(res => res.json())
-            .then(data => this.state.users = data)
+
     }
 
+    componentDidMount() {
+        fetch(new URL(API_URL))
+            .then(res => res.json())
+            .then(data => this.setState({users: data}));
+    }
 
 
     render()
@@ -26,11 +30,11 @@ class Pupils extends React.Component
                 <Grid item lg={12}>
                     <h1>Schüler</h1>
                 </Grid>
-                {this.state.users.map(values => (
+                {this.state.users.map(value => (
                     <Grid item lg={this.props.size}>
-                        <Link to="/user" onClick={() => this.props.idHandler(values.Id)}>
+                        <Link to="/user" onClick={() => this.props.idHandler(value.ID)}>
                             <Card>
-                                <span> {values.Name} </span>
+                                <span> {value.Nickname} </span>
                             </Card>
                         </Link>
                     </Grid>
