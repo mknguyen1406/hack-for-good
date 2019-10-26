@@ -2,7 +2,6 @@ import React from 'react';
 import './App.css';
 import Container from '@material-ui/core/Container';
 import Grid from "@material-ui/core/Grid";
-import 'react-tabs/style/react-tabs.css';
 import Pupils from './Pupils';
 import Header from './Header';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -20,8 +19,12 @@ import Avatar from '@material-ui/core/Avatar';
 import AccessAlarms from '@material-ui/icons/AccessAlarms';
 import BNInput from './BNInput';
 
+const API_URL = "http://127.0.0.1:5000/pupils?fellow_id=1";
+
 
 class App extends React.Component {
+
+
 
     constructor(props)
     {
@@ -32,6 +35,13 @@ class App extends React.Component {
         };
         this.updateCurrentId = this.updateCurrentId.bind(this);
         this.insertCallback = this.insertCallback.bind(this);
+        this.testfetch();
+    }
+
+    testfetch()
+    {
+        fetch(new URL(API_URL)).then(res => res.json())
+               .then(data => console.log(data) );
     }
 
     updateCurrentId(id)
@@ -44,9 +54,7 @@ class App extends React.Component {
     insertCallback()
     {
         console.log(this.state.insert);
-        this.setState({
-            insert : 1
-        });
+        this.state.insert = 1
         console.log(this.state.insert);
     }
 
@@ -75,11 +83,11 @@ class App extends React.Component {
                                         <Pupils size={3} idHandler={this.updateCurrentId} />
                                     </Route>
 
-                                    <Route path="/user" >
+                                    <Route exact path="/user" >
                                         <User id={this.state.currentID} insertHandler={this.insertCallback}/>
                                     </Route>
 
-                                    <Route path="/user/insert" >
+                                    <Route exact path="/user/insert" >
                                         <BNInput id={this.state.currentID} />
                                     </Route>
                                 </Switch>
