@@ -32,7 +32,7 @@ class BNInput extends React.Component {
         this.learningBehavior = [{name: 'Ist motiviert', choices: this.choicesLKM}, {name: 'Setzt sich eigene Lernziele', choices: this.choicesLKM}];
         this.parentsAbsences = ['Elternkontakt (Anzahl Kontaktpunkte: Telefonate, Gespräche etc.)', 'Fehlzeiten (Tage / Stunden… wichtig ist Einheitlichkeit)']
         this.future = ['hat an berufsorientierenden Maßnahmen teilgenommen (Häufigkeit + Art)'];
-        this.prognosis = ['Prognose'];
+        this.prognosis = [{name: 'Prognose', choices: this.choicesLKM}];
 
         this.state = {};
         // initialize state with all
@@ -40,6 +40,7 @@ class BNInput extends React.Component {
         this.verbalSkills.forEach(s => this.state[s.name] = '');
         this.socialBehavior.forEach(s => this.state[s.name] = '');
         this.learningBehavior.forEach(s => this.state[s.name] = '');
+        this.state['date'] = 1;
     }
 
     handleChange(name, event) {
@@ -67,11 +68,13 @@ class BNInput extends React.Component {
                 <div>
                 <h2 style={titleMargin}>Neue Bewertung für Zeitpunkt </h2>
                 <Select inputProps={{
-                    value: "2019-10"
-                }} style={selectMargin} className={styles.title}>
-                    <MenuItem value={"2019-10"}>Oktober 2019</MenuItem>
-                    <MenuItem value={"2019-12"}>Dezember 2019</MenuItem>
-                    <MenuItem value={"2020-02"}>Februar 2020</MenuItem>
+                    value: this.state.date
+                }} style={selectMargin} className={styles.title} onChange={e => this.handleChangeComp('date', e.target.value)}>
+                    <MenuItem value={1}>1 | Beginn 1. SJ</MenuItem>
+                    <MenuItem value={2}>2 | Halbjahr 1. SJ</MenuItem>
+                    <MenuItem value={3}>3 | Ende 1. SJ/Anfang 2. SJ</MenuItem>
+                    <MenuItem value={4}>4 | Halbjahr 2. SJ</MenuItem>
+                    <MenuItem value={5}>5 | Ende 2. SJ</MenuItem>
                 </Select>
                 </div>
 
@@ -88,49 +91,28 @@ class BNInput extends React.Component {
                 <h3>Handlungskompetenzen / Lernkulturmatrix (LKM)</h3>
                 <h4>Sozialverhalten</h4>
                 <table><tbody>{this.socialBehavior.map((el) =>
-                    <BNInputComp name={el.name} type={"select"} options={el.choices} handleChange={this.handleChangeComp}/>
+                    <BNInputComp value={this.state[el.name]} name={el.name} type={"select"} options={el.choices} handleChange={this.handleChangeComp}/>
                 )}</tbody></table>
 
                 <h4>Lern- und Arbeitsverhalten</h4>
-                <table><tbody>{this.learningBehavior.map((el) =>
-                    <BNInputComp name={el.name} type={"select"} options={el.choices} handleChange={this.handleChangeComp}/>
+                <table><tbody>{this.future.map((el) =>
+                    <BNInputComp value={this.state[el]} name={el} type={"freetext"} handleChange={this.handleChangeComp}/>
                 )}</tbody></table>
 
                 <h3>Elternarbeit & Fehlzeiten</h3>
-                <table><tbody>{this.parentsAbsences.map((name) => <tr>
-                        <td><span>{name}</span></td>
-                        <td><TextField
-                            id={name}
-                            onChange={this.handleChange(name)}
-                            margin="normal"
-                        /></td>
-                    </tr>
-                )}
-                </tbody></table>
+                <table><tbody>{this.parentsAbsences.map((el) =>
+                    <BNInputComp value={this.state[el]} name={el} type={"freetext"} handleChange={this.handleChangeComp}/>
+                )}</tbody></table>
 
                 <h3>Zukunft</h3>
-                <table><tbody>{this.future.map((name) => <tr>
-                        <td><span>{name}</span></td>
-                        <td><TextField
-                            id={name}
-                            onChange={this.handleChange(name)}
-                            margin="normal"
-                        /></td>
-                    </tr>
-                )}
-                </tbody></table>
+                <table><tbody>{this.future.map((el) =>
+                    <BNInputComp value={this.state[el]} name={el} type={"freetext"} handleChange={this.handleChangeComp}/>
+                )}</tbody></table>
 
                 <h3>Sicherer Übergang | Übergangsprognose</h3>
-                <table><tbody>{this.future.map((name) => <tr>
-                        <td><span>{name}</span></td>
-                        <td><TextField
-                            id={name}
-                            onChange={this.handleChange(name)}
-                            margin="normal"
-                        /></td>
-                    </tr>
-                )}
-                </tbody></table>
+                <table><tbody>{this.prognosis.map((el) =>
+                    <BNInputComp value={this.state[el.name]} name={el.name} type={"select"} options={el.choices} handleChange={this.handleChangeComp}/>
+                )}</tbody></table>
 
             </Container>
         );
