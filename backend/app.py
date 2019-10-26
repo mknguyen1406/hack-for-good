@@ -13,10 +13,10 @@ CORS(app) # allow cross-origin requests
 @app.route("/pupils", methods=['GET'])
 def get_pupils():
     # get fellow id from HTTP body
-    fellow_id = request.args.get("fellow_id")
+    fellow_id = int(request.args.get("fellow_id"))
 
     # load pupils from database
-    cursor.execute(f"SELECT * FROM pupil WHERE Fellow_ID = {fellow_id}")
+    cursor.execute(f"SELECT * FROM pupil p INNER JOIN evaluation e ON p.ID = e.Student_ID WHERE e.Active = 1 AND p.Fellow_ID={fellow_id}")
     row_headers = [x[0] for x in cursor.description]
     pupils = cursor.fetchall()
     json_data = []
@@ -87,6 +87,7 @@ def post_evaluation():
     berufsorientierung_state = request.get_json('berufsorientierung_state')['berufsorientierung_state']
     berufsorientierung_comment = request.get_json('elternkontakt_comment')['elternkontakt_comment']
     uebergangsprognose = request.get_json('uebergangsprognose')['uebergangsprognose']
+    active = request.get_json('active')['active']
 
     # commit according to https://stackoverflow.com/questions/5687718/how-can-i-insert-data-into-a-mysql-database
     try:
@@ -96,17 +97,19 @@ def post_evaluation():
                        f"Motivation, Lernziele,"
                        f"Elternkontakt_Date, Elternkontakt_Comment, Fehlzeiten,"
                        f"Berufsorientierung_State, Berufsorientierung_Comment,"
-                       f"Uebergangsprognose)"
+                       f"Uebergangsprognose, Active)"
                        f"VALUES ({fellow_id},{pupil_id},{timestamp}, {mathe}, {englisch}, {deutsch}, {weiteres_fach}, "
                        f"{hoeren}, {sprechen}, {schreiben}, {lesen}, "
                        f"{selbstvertrauen}, {teamdenken}, {reflexionsfaehigkeit}, {regeleinhaltung}, {hilfsbereitschaft}, {konfliktverhalten}, "
                        f"{motivation}, {lernziele},"
                        f"{elternkontakt_date}, {elternkontakt_comment}, {fehlzeiten},"
                        f"{berufsorientierung_state}, {berufsorientierung_comment},"
-                       f"{uebergangsprognose})")
+                       f"{uebergangsprognose},{active})")
         conn.commit()
     except BaseException as e:
         conn.rollback()
+
+    test = 0
 
 @app.route("/evaluations", methods=['GET'])
 def get_evaluations():
