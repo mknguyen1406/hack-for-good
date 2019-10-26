@@ -16,7 +16,7 @@ def get_pupils():
     fellow_id = request.get_json('fellow_id')['fellow_id']
 
     # load pupils from database
-    cursor.execute(f"SELECT * FROM pupils WHERE Fellow_ID = {fellow_id}")
+    cursor.execute(f"SELECT * FROM pupil WHERE Fellow_ID = {fellow_id}")
     row_headers = [x[0] for x in cursor.description]
     pupils = cursor.fetchall()
     json_data = []
@@ -30,7 +30,7 @@ def get_fellows():
     manager_name = request.get_json('manager_name')['manager_name']
 
     # load fellows from database
-    cursor.execute(f"SELECT * FROM fellows WHERE Program_Manager = {manager_name}")
+    cursor.execute(f"SELECT * FROM fellow WHERE Program_Manager = {manager_name}")
     row_headers = [x[0] for x in cursor.description]
     fellows = cursor.fetchall()
     json_data = []
@@ -55,7 +55,7 @@ def get_pupil():
 @app.route("/evaluations", methods=['GET'])
 def get_evaluations():
     fellow_id = request.get_json('fellow_id')['fellow_id'] # Fellow_ID
-    cursor.execute(f"SELECT * FROM evaluations WHERE Fellow_ID = {fellow_id}")
+    cursor.execute(f"SELECT * FROM evaluation WHERE Fellow_ID = {fellow_id}")
     row_headers = [x[0] for x in cursor.description]
     evaluations = cursor.fetchall()
     json_data = []
