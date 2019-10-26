@@ -1,10 +1,13 @@
-from bson import json_util
 from flask import Flask, request
 from flask_cors import CORS
-import flask_sqlalchemy
+from flask_sqlalchemy import SQLAlchemy
 import json
+import mysql.connector
+from mysql.connector import errorcode
+
 
 app = Flask(__name__)
+
 CORS(app) # allow cross-origin requests
 
 @app.route("/get_pupils", methods=['GET'])
@@ -14,7 +17,7 @@ def get_pupils():
 
     # load pupils from database
     pupils = [] # TODO
-    return json.dumps(pupils, default=json_util.default)
+    return json.dumps(pupils)
 
 @app.route("/get_fellows", methods=['GET'])
 def get_fellows():
@@ -22,8 +25,8 @@ def get_fellows():
     manager_id = request.get_json('manager_id')['manager_id']
 
     # load fellows from database
-    fellows = [] # TODO
-    return json.dumps(fellows, default=json_util.default)
+    fellows = cursor.execute("SELECT * FROM fellows WHERE manager_id = manager_id")
+    return json.dumps(fellows)
 
 @app.route("/get_pupil", methods=['GET'])
 def get_pupil():
@@ -31,8 +34,8 @@ def get_pupil():
     pupil_id = request.get_json('pupil_id')['pupil_id']
 
     # load pupil from database
-    pupil = [] # TODO
-    return json.dumps(pupil, default=json_util.default)
+    pupil = cursor.execute("SELECT * FROM fellows WHERE id = pupil_id")
+    return json.dumps(pupil)
 
 @app.route("/load_region_data", methods=['GET'])
 def load_region_data():
@@ -41,7 +44,28 @@ def load_region_data():
 
     # load data from database
     data = []
-    return json.dumps(region, default=json_util.default)
+    return json.dumps(region)
     
 if __name__ == "__main__":
+    # Obtain connection string information from the portal
+    config = {
+        'host':'hfg-db-server.mysql.database.azure.com',
+        'user':'ksritter@hfg-db-server',
+        'password':'h4forgood!',
+        'database':'ksritter'
+    }
+
+    # Construct connection string
+    try:
+        conn = mysql.connector.connect(**config)
+        print("Connection established")
+    except mysql.connector.Error as err:
+        if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
+            print("Something is wrong with the user name or password")
+        elif err.errno == errorcode.ER_BAD_DB_ERROR:
+            print("Database does not exist")
+        else:
+            print(err)
+    else:
+        cursor = conn.cursor()
     app.run(debug=True)
