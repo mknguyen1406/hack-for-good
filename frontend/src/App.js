@@ -26,16 +26,21 @@ class App extends React.Component {
     {
         super(props);
         this.state = {
-            currentID : 0
+            currentID : -1
         };
-        this.currentIdHandler = this.updateCurrentId.bind(this);
+        this.updateCurrentId = this.updateCurrentId.bind(this);
     }
 
-    updateCurrentId(props)
+    updateCurrentId(id)
     {
         this.setState({
-            currentID : props.id
+            currentID : id
         });
+    }
+
+    componentDidMount()
+    {
+
     }
 
     render()
@@ -55,7 +60,7 @@ class App extends React.Component {
                             <Grid item lg={9} style={{background: "#fff"}}>
                                 <Switch>
                                     <Route exact path="/">
-                                        <Pupils size={3} />
+                                        <Pupils size={3} idHandler={this.updateCurrentId} />
                                     </Route>
                                     <Route path="/user" >
                                         <User id={this.state.currentID}/>
@@ -100,14 +105,6 @@ class App extends React.Component {
                                 </List>
                             </Grid>
                         </Grid>
-
-                        <Grid contrainer spacing={2}>
-                            <iframe width="100%" height="1000"
-                                    src="https://app.powerbi.com/view?r=eyJrIjoiNTRjOGMyOGEtZDk5MS00ZGZhLWJhN2MtMWYyNDFlODg0MWU4IiwidCI6IjIxNjg0NGRjLTljOTAtNDk0OS04ZTRiLTU4ZWEyZDJjM2RiZSIsImMiOjh9"
-                                    frameBorder="0" allowFullScreen="true"></iframe>
-                        </Grid>
-
-
                     </Container>
                 </div>
             </Router>
