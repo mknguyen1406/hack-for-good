@@ -16,16 +16,16 @@ def get_pupils():
     fellow_id = request.get_json('fellow_id')['fellow_id']
 
     # load pupils from database
-    pupils = [] # TODO
+    pupils = cursor.execute(f"SELECT * FROM pupils WHERE Fellow_ID = {fellow_id}")
     return json.dumps(pupils)
 
 @app.route("/get_fellows", methods=['GET'])
 def get_fellows():
     # get manager id from HTTP body
-    manager_id = request.get_json('manager_id')['manager_id']
+    manager_name = request.get_json('manager_name')['manager_name']
 
     # load fellows from database
-    fellows = cursor.execute("SELECT * FROM fellows WHERE manager_id = manager_id")
+    fellows = cursor.execute(f"SELECT * FROM fellows WHERE Program_Manager = {manager_name}")
     return json.dumps(fellows)
 
 @app.route("/get_pupil", methods=['GET'])
@@ -34,8 +34,15 @@ def get_pupil():
     pupil_id = request.get_json('pupil_id')['pupil_id']
 
     # load pupil from database
-    pupil = cursor.execute("SELECT * FROM fellows WHERE id = pupil_id")
+    pupil = cursor.execute(f"SELECT * FROM pupils WHERE ID = {pupil_id}")
     return json.dumps(pupil)
+
+@app.route("/get_evaluations", methods=['GET'])
+def get_evaluations():
+    fellow_id = request.get_json('fellow_id')['fellow_id'] # Fellow_ID
+    cursor.execute(f"SELECT * FROM evaluations WHERE Fellow_ID = {fellow_id}")
+    evaluations = cursor.fetchall()
+    return json.dumps(evaluations)
 
 @app.route("/load_region_data", methods=['GET'])
 def load_region_data():
