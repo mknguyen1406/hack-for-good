@@ -16,10 +16,14 @@ def get_pupils():
     fellow_id = request.get_json('fellow_id')['fellow_id']
 
     # load pupils from database
-    cursor.execute(f"SELECT * FROM pupils WHERE Fellow_ID = {fellow_id}")
+    # cursor.execute(f"SELECT * FROM pupils WHERE Fellow_ID = {fellow_id}")
+    cursor.execute(f"select ID, Nickname from pupils inner join evaluations on pupils.ID=evaluations.Student_ID where evaluations.Fellow_ID={fellow_id}")
     pupils = cursor.fetchall()
-    return json.dumps(pupils)
+    result = json.dumps(pupils)
+    print(result)
+    return result
 
+# TODO
 @app.route("/get_fellows", methods=['GET'])
 def get_fellows():
     # get manager id from HTTP body
@@ -40,6 +44,7 @@ def get_pupil():
     pupil = cursor.fetchall()
     return json.dumps(pupil)
 
+# TODO
 @app.route("/get_evaluations", methods=['GET'])
 def get_evaluations():
     fellow_id = request.get_json('fellow_id')['fellow_id'] # Fellow_ID
@@ -47,6 +52,7 @@ def get_evaluations():
     evaluations = cursor.fetchall()
     return json.dumps(evaluations)
 
+# TODO
 @app.route("/load_region_data", methods=['GET'])
 def load_region_data():
     # get region from HTTP body
@@ -55,7 +61,7 @@ def load_region_data():
     # load data from database
     data = []
     return json.dumps(region)
-    
+
 if __name__ == "__main__":
     # Obtain connection string information from the portal
     config = {
