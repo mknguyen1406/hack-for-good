@@ -18,6 +18,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import AccessAlarms from '@material-ui/icons/AccessAlarms';
+import BNInput from './BNInput';
 
 
 class App extends React.Component {
@@ -26,9 +27,11 @@ class App extends React.Component {
     {
         super(props);
         this.state = {
-            currentID : -1
+            currentID : -1,
+            insert : -1
         };
         this.updateCurrentId = this.updateCurrentId.bind(this);
+        this.insertCallback = this.insertCallback.bind(this);
     }
 
     updateCurrentId(id)
@@ -36,6 +39,15 @@ class App extends React.Component {
         this.setState({
             currentID : id
         });
+    }
+
+    insertCallback()
+    {
+        console.log(this.state.insert);
+        this.setState({
+            insert : 1
+        });
+        console.log(this.state.insert);
     }
 
     componentDidMount()
@@ -62,8 +74,13 @@ class App extends React.Component {
                                     <Route exact path="/">
                                         <Pupils size={3} idHandler={this.updateCurrentId} />
                                     </Route>
+
                                     <Route path="/user" >
-                                        <User id={this.state.currentID}/>
+                                        <User id={this.state.currentID} insertHandler={this.insertCallback}/>
+                                    </Route>
+
+                                    <Route path="/user/insert" >
+                                        <BNInput id={this.state.currentID} />
                                     </Route>
                                 </Switch>
                             </Grid>
