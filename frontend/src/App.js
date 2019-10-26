@@ -7,53 +7,112 @@ import Pupils from './Pupils';
 import Header from './Header';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import User from './User';
-
 import {
     BrowserRouter as Router,
     Switch,
     Route,
 } from "react-router-dom";
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import Avatar from '@material-ui/core/Avatar';
+import AccessAlarms from '@material-ui/icons/AccessAlarms';
 
-function App() {
 
-    return (
-        <Router>
-            <div className="App">
-                <CssBaseline />
-                <Container maxWidth="lg">
-                    <Grid container spacing={2}>
-                        <Grid item xs={12}>
-                            <Header name={"Marius"}/>
+class App extends React.Component {
+
+    constructor(props)
+    {
+        super(props);
+        this.state = {
+            currentID : 0
+        };
+        this.currentIdHandler = this.updateCurrentId.bind(this);
+    }
+
+    updateCurrentId(props)
+    {
+        this.setState({
+            currentID : props.id
+        });
+    }
+
+    render()
+    {
+        return (
+            <Router>
+                <div className="App">
+                    <CssBaseline/>
+                    <Container maxWidth="lg">
+                        <Grid container spacing={10}>
+                            <Grid item xs={12}>
+                                <Header name={"Marius"}/>
+                            </Grid>
                         </Grid>
-                    </Grid>
 
-                    <Grid container spacing={2}>
-                        <Grid item lg={9}>
-                            <Switch>
-                                <Route exact path="/">
-                                    <Pupils size={3}/>
-                                </Route>
-                                <Route path="/user">
-                                    <User id={1} />
-                                </Route>
-                            </Switch>
+                        <Grid container spacing={2}>
+                            <Grid item lg={9} style={{background: "#fff"}}>
+                                <Switch>
+                                    <Route exact path="/">
+                                        <Pupils size={3} />
+                                    </Route>
+                                    <Route path="/user" >
+                                        <User id={this.state.currentID}/>
+                                    </Route>
+                                </Switch>
+                            </Grid>
+                            <Grid item lg={3}>
+                                <List style={{background: "#fff", width: "100%", maxWidth: "360px"}}>
+                                    <h2>Termine</h2>
+                                    <ListItem>
+                                        <ListItemAvatar>
+                                            <Avatar>
+                                                <AccessAlarms />
+                                            </Avatar>
+                                        </ListItemAvatar>
+                                        <ListItemText primary="AccessAlarms" secondary="9. Jan 2019" />
+                                    </ListItem>
+                                    <ListItem>
+                                        <ListItemAvatar>
+                                            <Avatar>
+                                                <AccessAlarms />
+                                            </Avatar>
+                                        </ListItemAvatar>
+                                        <ListItemText primary="AccessAlarms" secondary="7. Jan 2019" />
+                                    </ListItem>
+                                    <ListItem>
+                                        <ListItemAvatar>
+                                            <Avatar>
+                                                <AccessAlarms />
+                                            </Avatar>
+                                        </ListItemAvatar>
+                                        <ListItemText primary="AccessAlarms" secondary="20. July 2019" />
+                                    </ListItem>
+                                    <ListItem>
+                                        <ListItemAvatar>
+                                            <Avatar>
+                                                <AccessAlarms />
+                                            </Avatar>
+                                        </ListItemAvatar>
+                                        <ListItemText primary="AccessAlarms" secondary="14. August 2019" />
+                                    </ListItem>
+                                </List>
+                            </Grid>
                         </Grid>
-                        <Grid item lg={3}>
-                            <h2>Termine</h2>
-                            <ul>
-                                <li>1. Termin</li>
-                                <li>2. Termin</li>
-                                <li>3. Termin</li>
-                                <li>4. Termin</li>
-                            </ul>
+
+                        <Grid contrainer spacing={2}>
+                            <iframe width="100%" height="1000"
+                                    src="https://app.powerbi.com/view?r=eyJrIjoiNTRjOGMyOGEtZDk5MS00ZGZhLWJhN2MtMWYyNDFlODg0MWU4IiwidCI6IjIxNjg0NGRjLTljOTAtNDk0OS04ZTRiLTU4ZWEyZDJjM2RiZSIsImMiOjh9"
+                                    frameBorder="0" allowFullScreen="true"></iframe>
                         </Grid>
-                    </Grid>
 
 
-                </Container>
-            </div>
-        </Router>
-    );
+                    </Container>
+                </div>
+            </Router>
+        );
+    }
 }
 
 export default App;
