@@ -28,7 +28,7 @@ class BNInput extends React.Component {
         this.mainSubjects = ['Mathe', 'Englisch', 'Deutsch', 'Weiteres'];
         this.verbalSkills = [{name: 'Hören', choices: this.choicesGeR}, {name: 'Sprechen', choices: this.choicesGeR}, {name: 'Schreiben', choices: this.choicesGeR}, {name: '(Vor-)Lesen', choices: this.choicesGeR}];
         this.socialBehavior = [{name: 'Selbstvertrauen', choices: this.choicesLKM}, {name: 'Arbeitet gerne mit anderen zusammen (Teamdenken)', choices: this.choicesLKM}, {name: 'Reflexionsfähigkeit', choices: this.choicesLKM} ,
-            {name: 'ggf.: Hält Schul- und Klassen-/Gruppenregeln ein', choices: this.choicesBinaryn}, {name: 'ggf.: Ist hilfsbereit', choices: this.choicesBinaryn}, {name: 'ggf.: Löst Konflikte adäquat', choices: this.choicesBinaryn}];
+            {name: 'Hält Schul- und Klassen-/Gruppenregeln ein', choices: this.choicesBinaryn}, {name: 'Ist hilfsbereit', choices: this.choicesBinaryn}, {name: 'Löst Konflikte adäquat', choices: this.choicesBinaryn}];
         this.learningBehavior = [{name: 'Ist motiviert', choices: this.choicesLKM}, {name: 'Setzt sich eigene Lernziele', choices: this.choicesLKM}];
         this.parentsAbsences = ['Elternkontakt (Anzahl Kontaktpunkte: Telefonate, Gespräche etc.)', 'Fehlzeiten (Tage / Stunden… wichtig ist Einheitlichkeit)']
         this.future = ['hat an berufsorientierenden Maßnahmen teilgenommen (Häufigkeit + Art)'];
@@ -62,6 +62,14 @@ class BNInput extends React.Component {
             marginBlockEnd: "20px",
             marginLeft: "10px"
         };
+        const subTitleMargin = {
+            marginBlockStart: "40px",
+            textAlign: "left"
+        };
+        const subSubTitleMargin = {
+            textAlign: "left"
+        };
+
         // todo make more points of time selectable
         return (
             <Container maxWidth="sm">
@@ -78,38 +86,38 @@ class BNInput extends React.Component {
                 </Select>
                 </div>
 
-                <h3>Leistungen in den Hautpfächern</h3>
+                <h3 style={subTitleMargin}>Leistungen in den Hautpfächern</h3>
                 <table><tbody>{this.mainSubjects.map((name) =>
                         <BNInputComp value={this.state[name]} name={name} type={"freetext"} handleChange={this.handleChangeComp}/>
                         )}</tbody></table>
 
-                <h3>Sprachliche Kompetenz</h3>
+                <h3 style={subTitleMargin}>Sprachliche Kompetenz</h3>
                 <table><tbody>{this.verbalSkills.map((el) =>
                     <BNInputComp value={this.state[el.name]} name={el.name} type={"select"} options={el.choices} handleChange={this.handleChangeComp}/>
                 )}</tbody></table>
 
-                <h3>Handlungskompetenzen / Lernkulturmatrix (LKM)</h3>
-                <h4>Sozialverhalten</h4>
+                <h3 style={subTitleMargin}>Handlungskompetenzen / Lernkulturmatrix (LKM)</h3>
+                <h4 style={subSubTitleMargin}>Sozialverhalten</h4>
                 <table><tbody>{this.socialBehavior.map((el) =>
                     <BNInputComp value={this.state[el.name]} name={el.name} type={"select"} options={el.choices} handleChange={this.handleChangeComp}/>
                 )}</tbody></table>
 
-                <h4>Lern- und Arbeitsverhalten</h4>
+                <h4 style={subSubTitleMargin}>Lern- und Arbeitsverhalten</h4>
                 <table><tbody>{this.future.map((el) =>
                     <BNInputComp value={this.state[el]} name={el} type={"freetext"} handleChange={this.handleChangeComp}/>
                 )}</tbody></table>
 
-                <h3>Elternarbeit & Fehlzeiten</h3>
+                <h3 style={subTitleMargin}>Elternarbeit & Fehlzeiten</h3>
                 <table><tbody>{this.parentsAbsences.map((el) =>
                     <BNInputComp value={this.state[el]} name={el} type={"freetext"} handleChange={this.handleChangeComp}/>
                 )}</tbody></table>
 
-                <h3>Zukunft</h3>
+                <h3 style={subTitleMargin}>Zukunft</h3>
                 <table><tbody>{this.future.map((el) =>
                     <BNInputComp value={this.state[el]} name={el} type={"freetext"} handleChange={this.handleChangeComp}/>
                 )}</tbody></table>
 
-                <h3>Sicherer Übergang | Übergangsprognose</h3>
+                <h3 style={subTitleMargin}>Sicherer Übergang | Übergangsprognose</h3>
                 <table><tbody>{this.prognosis.map((el) =>
                     <BNInputComp value={this.state[el.name]} name={el.name} type={"select"} options={el.choices} handleChange={this.handleChangeComp}/>
                 )}</tbody></table>
