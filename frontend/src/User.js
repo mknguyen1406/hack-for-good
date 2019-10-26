@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 
 class User extends React.Component
 {
@@ -10,7 +11,12 @@ class User extends React.Component
     render()
     {
         return (
-            <h1>{this.props.id}</h1>
+            <div>
+                <h1>{this.props.id}</h1>
+                <Link to="/user/insert" onClick={() => this.props.insertHandler()}>
+                    FUCK YOU!
+                </Link>
+            </div>
         );
     }
 
