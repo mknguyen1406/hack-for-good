@@ -1,3 +1,6 @@
+# Ignore custom dirs
+env/
+docs/
 
 # Created by https://www.gitignore.io/api/vue,vuejs,flask,python,pycharm+all,visualstudiocode
 # Edit at https://www.gitignore.io/?templates=vue,vuejs,flask,python,pycharm+all,visualstudiocode

@@ -13,7 +13,7 @@ CORS(app) # allow cross-origin requests
 @app.route("/pupils", methods=['GET'])
 def get_pupils():
     # get fellow id from HTTP body
-    fellow_id = request.get_json('fellow_id')['fellow_id']
+    fellow_id = request.args.get("fellow_id")
 
     # load pupils from database
     cursor.execute(f"SELECT * FROM pupil WHERE Fellow_ID = {fellow_id}")
@@ -27,7 +27,7 @@ def get_pupils():
 @app.route("/fellows", methods=['GET'])
 def get_fellows():
     # get manager id from HTTP body
-    manager_name = request.get_json('manager_name')['manager_name']
+    manager_name =  request.args.get("manager_name")
 
     # load fellows from database
     cursor.execute(f"SELECT * FROM fellow WHERE Program_Manager = {manager_name}")
@@ -41,7 +41,7 @@ def get_fellows():
 @app.route("/pupil", methods=['GET'])
 def get_pupil():
     # get pupil id from HTTP body
-    pupil_id = request.get_json('pupil_id')['pupil_id']
+    pupil_id = request.args.get("pupil_id")
 
     # load pupil from database
     cursor.execute(f"SELECT * FROM pupils WHERE ID = {pupil_id}")
@@ -110,7 +110,7 @@ def post_evaluation():
 
 @app.route("/evaluations", methods=['GET'])
 def get_evaluations():
-    fellow_id = request.get_json('fellow_id')['fellow_id'] # Fellow_ID
+    fellow_id = request.args.get("fellow_id") # Fellow_ID
     cursor.execute(f"SELECT * FROM evaluation WHERE Fellow_ID = {fellow_id}")
     row_headers = [x[0] for x in cursor.description]
     evaluations = cursor.fetchall()
