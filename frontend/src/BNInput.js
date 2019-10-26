@@ -38,7 +38,6 @@ class BNInput extends React.Component {
         // initialize state with all
         this.mainSubjects.forEach(s => this.state[s] = '');
         this.verbalSkills.forEach(s => this.state[s.name] = '');
-        this.state['Hören'] = 'A2';
         this.socialBehavior.forEach(s => this.state[s.name] = '');
         this.learningBehavior.forEach(s => this.state[s.name] = '');
     }
@@ -48,8 +47,7 @@ class BNInput extends React.Component {
     }
 
     handleChangeComp(name, value) {
-        this.setState({name: value});
-        console.log(name + ': ' + value);
+        this.setState({[name]: value});
     }
 
     render() {
