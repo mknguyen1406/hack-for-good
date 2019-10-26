@@ -105,8 +105,11 @@ def post_evaluation():
                        f"{berufsorientierung_state}, {berufsorientierung_comment},"
                        f"{uebergangsprognose})")
         conn.commit()
+        return 'Success'
     except BaseException as e:
         conn.rollback()
+        return 'Error'
+
 
 @app.route("/evaluations", methods=['GET'])
 def get_evaluations():
