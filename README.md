@@ -1,6 +1,8 @@
 # hfg
 
-Install python packages with 
+Install python packages with
 ```
-conda env create -f conda.yml
+pip install -r requirements.txt
 ```
+
+General instructions for conda: [Link](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html)
