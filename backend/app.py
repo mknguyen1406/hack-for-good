@@ -52,6 +52,62 @@ def get_pupil():
         json_data.append(dict(zip(row_headers,result)))
     return json.dumps(json_data)
 
+
+@app.route("/evaluation", methods=['POST'])
+def post_evaluation():
+    fellow_id = request.get_json('fellow_id')['fellow_id']
+    pupil_id = request.get_json('pupil_id')['pupil_id']
+    timestamp = request.get_json('time')['time']
+
+    mathe = request.get_json('mathe')['mathe']
+    englisch = request.get_json('englisch')['englisch']
+    deutsch = request.get_json('deutsch')['deutsch']
+
+    weiteres_fach = request.get_json('weiteres_fach')['weiteres_fach']
+    hoeren = request.get_json('hoeren')['hoeren']
+    sprechen = request.get_json('sprechen')['sprechen']
+    schreiben = request.get_json('schreiben')['schreiben']
+
+    lesen = request.get_json('lesen')['lesen']
+    selbstvertrauen = request.get_json('selbstvertrauen')['selbstvertrauen']
+    teamdenken = request.get_json('teamdenken')['teamdenken']
+
+    reflexionsfaehigkeit = request.get_json('reflexionsfaehigkeit')['reflexionsfaehigkeit']
+    regeleinhaltung = request.get_json('regeleinhaltung')['regeleinhaltung']
+    hilfsbereitschaft = request.get_json('hilfsbereitschaft')['hilfsbereitschaft']
+
+    konfliktverhalten = request.get_json('konfliktverhalten')['konfliktverhalten']
+    motivation = request.get_json('motivation')['motivation']
+    lernziele = request.get_json('lernziele')['lernziele']
+
+    elternkontakt_date = request.get_json('elternkontakt_date')['elternkontakt_date']
+    elternkontakt_comment = request.get_json('elternkontakt_comment')['elternkontakt_comment']
+    fehlzeiten = request.get_json('fehlzeiten')['fehlzeiten']
+
+    berufsorientierung_state = request.get_json('berufsorientierung_state')['berufsorientierung_state']
+    berufsorientierung_comment = request.get_json('elternkontakt_comment')['elternkontakt_comment']
+    uebergangsprognose = request.get_json('uebergangsprognose')['uebergangsprognose']
+
+    # commit according to https://stackoverflow.com/questions/5687718/how-can-i-insert-data-into-a-mysql-database
+    try:
+        cursor.execute(f"INSERT INTO evaluation (Fellow_ID, Student_ID, Time, Mathe, Englisch, Deutsch, Weiteres_Fach,"
+                       f"Hoeren, Sprechen, Schreiben, Lesen, "
+                       f"Selbstvertrauen, Teamdenken, Reflexionsfaehigkeit, Regeleinhaltung, Hilfsbereitschaft, Konfliktverhalten,"
+                       f"Motivation, Lernziele,"
+                       f"Elternkontakt_Date, Elternkontakt_Comment, Fehlzeiten,"
+                       f"Berufsorientierung_State, Berufsorientierung_Comment,"
+                       f"Uebergangsprognose)"
+                       f"VALUES ({fellow_id},{pupil_id},{timestamp}, {mathe}, {englisch}, {deutsch}, {weiteres_fach}, "
+                       f"{hoeren}, {sprechen}, {schreiben}, {lesen}, "
+                       f"{selbstvertrauen}, {teamdenken}, {reflexionsfaehigkeit}, {regeleinhaltung}, {hilfsbereitschaft}, {konfliktverhalten}, "
+                       f"{motivation}, {lernziele},"
+                       f"{elternkontakt_date}, {elternkontakt_comment}, {fehlzeiten},"
+                       f"{berufsorientierung_state}, {berufsorientierung_comment},"
+                       f"{uebergangsprognose})")
+        conn.commit()
+    except BaseException as e:
+        conn.rollback()
+
 @app.route("/evaluations", methods=['GET'])
 def get_evaluations():
     fellow_id = request.get_json('fellow_id')['fellow_id'] # Fellow_ID
