@@ -175,40 +175,44 @@ class BNInput extends React.Component {
                 </div>
 
                 <h3 style={subTitleMargin}>Leistungen in den Hautpfächern</h3>
-                <table><tbody>{this.mainSubjects.map((name) =>
+                <table><tbody>
+
+                {this.mainSubjects.map((name) =>
                         <BNInputComp value={this.state[name]} name={name} type={"number"} handleChange={this.handleChangeComp}/>
-                        )}</tbody></table>
+                        )}
 
                 <h3 style={subTitleMargin}>Sprachliche Kompetenz</h3>
-                <table><tbody>{this.verbalSkills.map((el) =>
+               {this.verbalSkills.map((el) =>
                     <BNInputComp value={this.state[el.name]} name={el.name} type={"select"} options={el.choices} handleChange={this.handleChangeComp}/>
-                )}</tbody></table>
+                )}
 
                 <h3 style={subTitleMargin}>Handlungskompetenzen / Lernkulturmatrix (LKM)</h3>
                 <h4 style={subSubTitleMargin}>Sozialverhalten</h4>
-                <table><tbody>{this.socialBehavior.map((el) =>
+                {this.socialBehavior.map((el) =>
                     <BNInputComp value={this.state[el.name]} name={el.name} type={"select"} options={el.choices} handleChange={this.handleChangeComp}/>
-                )}</tbody></table>
+                )}
 
                 <h4 style={subSubTitleMargin}>Lern- und Arbeitsverhalten</h4>
-                <table><tbody>{this.learningBehavior.map((el) =>
+                {this.learningBehavior.map((el) =>
                     <BNInputComp value={this.state[el.name]} name={el.name} type={"select"} options={el.choices} handleChange={this.handleChangeComp}/>
-                )}</tbody></table>
+                )}
 
                 <h3 style={subTitleMargin}>Elternarbeit & Fehlzeiten</h3>
-                <table><tbody>{this.parentsAbsences.map((el) =>
+                {this.parentsAbsences.map((el) =>
                     <BNInputComp value={this.state[el]} name={el} type={"freetext"} handleChange={this.handleChangeComp}/>
-                )}</tbody></table>
+                )}
 
                 <h3 style={subTitleMargin}>Zukunft</h3>
-                <table><tbody>{this.future.map((el) =>
+                {this.future.map((el) =>
                     <BNInputComp value={this.state[el]} name={el} type={"freetext"} handleChange={this.handleChangeComp}/>
-                )}</tbody></table>
+                )}
 
                 <h3 style={subTitleMargin}>Sicherer Übergang | Übergangsprognose</h3>
-                <table><tbody>{this.prognosis.map((el) =>
+                {this.prognosis.map((el) =>
                     <BNInputComp value={this.state[el.name]} name={el.name} type={"select"} options={el.choices} handleChange={this.handleChangeComp}/>
-                )}</tbody></table>
+                )}
+
+                </tbody></table>
 
                 <SendButton variant="contained" color="primary" onClick={this.onSend}>
                     An PM senden
