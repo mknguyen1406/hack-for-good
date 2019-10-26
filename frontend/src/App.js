@@ -19,13 +19,7 @@ import Avatar from '@material-ui/core/Avatar';
 import AccessAlarms from '@material-ui/icons/AccessAlarms';
 import BNInput from './BNInput';
 
-const API_URL = "http://127.0.0.1:5000/pupils?fellow_id=1";
-
-
 class App extends React.Component {
-
-
-
     constructor(props)
     {
         super(props);
@@ -35,13 +29,6 @@ class App extends React.Component {
         };
         this.updateCurrentId = this.updateCurrentId.bind(this);
         this.insertCallback = this.insertCallback.bind(this);
-        this.testfetch();
-    }
-
-    testfetch()
-    {
-        fetch(new URL(API_URL)).then(res => res.json())
-               .then(data => console.log(data) );
     }
 
     updateCurrentId(id)
@@ -56,11 +43,6 @@ class App extends React.Component {
         console.log(this.state.insert);
         this.state.insert = 1
         console.log(this.state.insert);
-    }
-
-    componentDidMount()
-    {
-
     }
 
     render()
