@@ -34,7 +34,7 @@ class Pupils extends React.Component
                     <Grid item lg={this.props.size}>
                         <Link to="/user" onClick={() => this.props.idHandler(value.ID)}>
                             <Card>
-                                <span> {value.Nickname} </span>
+                                <p> {value.Nickname} </p>
                             </Card>
                         </Link>
                     </Grid>
