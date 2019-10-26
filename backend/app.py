@@ -10,50 +10,60 @@ app = Flask(__name__)
 
 CORS(app) # allow cross-origin requests
 
-@app.route("/get_pupils", methods=['GET'])
+@app.route("/pupils", methods=['GET'])
 def get_pupils():
     # get fellow id from HTTP body
     fellow_id = request.get_json('fellow_id')['fellow_id']
 
     # load pupils from database
-    # cursor.execute(f"SELECT * FROM pupils WHERE Fellow_ID = {fellow_id}")
-    cursor.execute(f"select ID, Nickname from pupils inner join evaluations on pupils.ID=evaluations.Student_ID where evaluations.Fellow_ID={fellow_id}")
+    cursor.execute(f"SELECT * FROM pupil WHERE Fellow_ID = {fellow_id}")
+    row_headers = [x[0] for x in cursor.description]
     pupils = cursor.fetchall()
-    result = json.dumps(pupils)
-    print(result)
-    return result
+    json_data = []
+    for result in pupils:
+        json_data.append(dict(zip(row_headers,result)))
+    return json.dumps(json_data)
 
-# TODO
-@app.route("/get_fellows", methods=['GET'])
+@app.route("/fellows", methods=['GET'])
 def get_fellows():
     # get manager id from HTTP body
     manager_name = request.get_json('manager_name')['manager_name']
 
     # load fellows from database
-    cursor.execute(f"SELECT * FROM fellows WHERE Program_Manager = {manager_name}")
+    cursor.execute(f"SELECT * FROM fellow WHERE Program_Manager = {manager_name}")
+    row_headers = [x[0] for x in cursor.description]
     fellows = cursor.fetchall()
-    return json.dumps(fellows)
+    json_data = []
+    for result in fellows:
+        json_data.append(dict(zip(row_headers,result)))
+    return json.dumps(json_data)
 
-@app.route("/get_pupil", methods=['GET'])
+@app.route("/pupil", methods=['GET'])
 def get_pupil():
     # get pupil id from HTTP body
     pupil_id = request.get_json('pupil_id')['pupil_id']
 
     # load pupil from database
     cursor.execute(f"SELECT * FROM pupils WHERE ID = {pupil_id}")
+    row_headers = [x[0] for x in cursor.description]
     pupil = cursor.fetchall()
-    return json.dumps(pupil)
+    json_data = []
+    for result in pupil:
+        json_data.append(dict(zip(row_headers,result)))
+    return json.dumps(json_data)
 
-# TODO
-@app.route("/get_evaluations", methods=['GET'])
+@app.route("/evaluations", methods=['GET'])
 def get_evaluations():
     fellow_id = request.get_json('fellow_id')['fellow_id'] # Fellow_ID
-    cursor.execute(f"SELECT * FROM evaluations WHERE Fellow_ID = {fellow_id}")
+    cursor.execute(f"SELECT * FROM evaluation WHERE Fellow_ID = {fellow_id}")
+    row_headers = [x[0] for x in cursor.description]
     evaluations = cursor.fetchall()
-    return json.dumps(evaluations)
+    json_data = []
+    for result in evaluations:
+        json_data.append(dict(zip(row_headers,result)))
+    return json.dumps(json_data)
 
-# TODO
-@app.route("/load_region_data", methods=['GET'])
+@app.route("/region_data", methods=['GET'])
 def load_region_data():
     # get region from HTTP body
     region = request.get_json('region')['region']
