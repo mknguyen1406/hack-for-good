@@ -106,8 +106,11 @@ def post_evaluation():
                        f"{berufsorientierung_state}, {berufsorientierung_comment},"
                        f"{uebergangsprognose},{active})")
         conn.commit()
+        return 'Success'
     except BaseException as e:
         conn.rollback()
+        return 'Error'
+
 
     test = 0
 
