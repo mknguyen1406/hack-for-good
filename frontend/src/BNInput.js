@@ -42,6 +42,7 @@ class BNInput extends React.Component {
         this.onSend = this.onSend.bind(this);
         this.indexIn1D = this.indexIn1D.bind(this);
         this.indexIn2D = this.indexIn2D.bind(this);
+        this.is_validate = this.is_validate.bind(this);
 
         this.choicesGeR = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
         // TODO display elaborate category description of LKM
@@ -99,6 +100,16 @@ class BNInput extends React.Component {
         return -1;
     }
 
+    is_validate() {
+        for (var key in this.state){
+            if (this.state[key] === '') {
+                // at least one invalid input
+                return false;
+            }
+        }
+        return true;
+    }
+
     onSend() {
         var convertedState = {
             "fellow_id": 1,
@@ -133,14 +144,6 @@ class BNInput extends React.Component {
 
         this.setState({triedSend: true});
 
-        for (var key in this.state){
-            if (this.state[key] === '') {
-                // at least one invalid input
-                return;
-            }
-        }
-
-
 
         const response = fetch(API_URL_POST, {
             method: 'POST',
@@ -148,7 +151,6 @@ class BNInput extends React.Component {
             body: JSON.stringify(convertedState),
         }).then(e => console.log('Result: ' + e));
 
-        window.location = '/user';
     }
 
     handleChange(name, event) {
@@ -240,9 +242,11 @@ class BNInput extends React.Component {
                 </tbody></table>
 
 
-                <SendButton variant="contained" color="primary" onClick={this.onSend}>
-                    An PM senden
-                </SendButton>
+                {this.is_validate() && <Link to="/user">
+                    <SendButton variant="contained" color="primary" onClick={this.onSend}>
+                        An PM senden
+                    </SendButton>
+                </Link>}
 
 
             </Container>
