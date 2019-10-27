@@ -140,11 +140,15 @@ class BNInput extends React.Component {
             }
         }
 
+
+
         const response = fetch(API_URL_POST, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(convertedState),
         }).then(e => console.log('Result: ' + e));
+
+        window.location = '/user';
     }
 
     handleChange(name, event) {
@@ -235,11 +239,11 @@ class BNInput extends React.Component {
 
                 </tbody></table>
 
-                <Link to="/user">
-                    <SendButton variant="contained" color="primary" onClick={this.onSend}>
-                        An PM senden
-                    </SendButton>
-                </Link>
+
+                <SendButton variant="contained" color="primary" onClick={this.onSend}>
+                    An PM senden
+                </SendButton>
+
 
             </Container>
         );
