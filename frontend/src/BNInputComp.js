@@ -25,13 +25,17 @@ const MySelect = styled(Select)({
 });
 
 
-
 const label = {
     float: "left",
     textAlign: "left",
     marginRight: "10px"
 };
 
+const errorStyle = {
+    color: "#db2269",
+    fontSize: "8pt",
+    position: "absolute"
+};
 
 
 class BNInputComp extends React.Component {
@@ -51,6 +55,7 @@ class BNInputComp extends React.Component {
                     margin="normal"
                     value={this.props.value}
                 /></td>
+                <td>{this.props.activateErrors && this.props.value === '' && <span style={errorStyle}>Pflichtfeld</span>}</td>
             </tr>
         } if (this.props.type === 'number') {
             return <tr>
@@ -62,6 +67,7 @@ class BNInputComp extends React.Component {
                     margin="normal"
                     value={this.props.value}
                 /></td>
+                <td>{this.props.activateErrors && this.props.value === '' && <span style={errorStyle}>Pflichtfeld</span>}</td>
             </tr>
         } else if (this.props.type === 'select') {
             return <tr>
@@ -72,6 +78,7 @@ class BNInputComp extends React.Component {
                     )}
                 </MySelect>
                 </td>
+                <td>{this.props.activateErrors && this.props.value === '' && <span style={errorStyle}>Pflichtfeld</span>}</td>
             </tr>
         }
     }
