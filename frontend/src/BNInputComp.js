@@ -14,7 +14,14 @@ import { styled } from '@material-ui/core/styles';
 
 const MyTextField = styled(TextField)({
     float: "left",
-    marginTop: "0"
+    marginTop: "0",
+    width: "200px",
+    textAlign: "left"
+});
+
+const MySelect = styled(Select)({
+    width: "200px",
+    textAlign: "left"
 });
 
 
@@ -24,6 +31,11 @@ const label = {
     marginRight: "10px"
 };
 
+const errorStyle = {
+    color: "#db2269",
+    fontSize: "8pt",
+    position: "absolute"
+};
 
 
 class BNInputComp extends React.Component {
@@ -43,6 +55,7 @@ class BNInputComp extends React.Component {
                     margin="normal"
                     value={this.props.value}
                 /></td>
+                <td>{this.props.activateErrors && this.props.value === '' && <span style={errorStyle}>Pflichtfeld</span>}</td>
             </tr>
         } if (this.props.type === 'number') {
             return <tr>
@@ -54,16 +67,18 @@ class BNInputComp extends React.Component {
                     margin="normal"
                     value={this.props.value}
                 /></td>
+                <td>{this.props.activateErrors && this.props.value === '' && <span style={errorStyle}>Pflichtfeld</span>}</td>
             </tr>
         } else if (this.props.type === 'select') {
             return <tr>
                 <td><span style={label}>{this.props.name}</span></td>
-                <td><Select inputProps={{value: this.props.value}} onChange={(event => this.props.handleChange(this.props.name, event.target.value))} style={{minWidth: 200}}>
+                <td><MySelect inputProps={{value: this.props.value}} onChange={(event => this.props.handleChange(this.props.name, event.target.value))}>
                     {this.props.options.map((name) =>
                     <MenuItem key={name} value={name}>{name}</MenuItem>
                     )}
-                </Select>
+                </MySelect>
                 </td>
+                <td>{this.props.activateErrors && this.props.value === '' && <span style={errorStyle}>Pflichtfeld</span>}</td>
             </tr>
         }
     }
