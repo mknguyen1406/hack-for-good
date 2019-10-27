@@ -84,8 +84,8 @@ class App extends React.Component {
                                     </Route>
                                 </Switch>
                             </Grid>
-                            <Grid item lg={3}>
-                                <List style={{background: "#fff"}}>
+                            <Grid item lg={3} style={{display: "flex"}}>
+                                <List style={{background: "#fff", width: "100%"}}>
                                     <h2>Termine</h2>
                                     <ListItem>
                                         <ListItemAvatar>

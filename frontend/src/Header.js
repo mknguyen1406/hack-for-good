@@ -44,7 +44,7 @@ function Header(props) {
                     <div className={classes.sectionDesktop}>
                         <Icon
                             edge="end"
-                            color="white    ">
+                            color="inherit">
                             <AccountCircle />
                         </Icon>
                     </div>
