@@ -82,6 +82,15 @@ class User extends React.Component
                     </Grid>
 
                 </Grid>
+
+                <Grid container spacing={10} justify={'center'}>
+                    <Grid item lg={12}>
+                        <iframe width="98%" height="530"
+                                src="https://app.powerbi.com/view?r=eyJrIjoiMjhjNDc3NmEtYjhmNS00MTE3LWIzMmQtYzQyMTgxN2E4OGZlIiwidCI6IjIxNjg0NGRjLTljOTAtNDk0OS04ZTRiLTU4ZWEyZDJjM2RiZSIsImMiOjh9"
+                                frameBorder="0" allowFullScreen="true"></iframe>
+                    </Grid>
+                </Grid>
+
             </Box>
         );
     }

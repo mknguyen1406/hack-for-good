@@ -29,7 +29,7 @@ class App extends React.Component {
         };
         this.updateCurrentId = this.updateCurrentId.bind(this);
         this.insertCallback = this.insertCallback.bind(this);
-        this.hideIFrameHandle = this.hideIFrame.bind(this);
+        this.hideIFrame = this.hideIFrame.bind(this);
     }
 
     updateCurrentId(id)
@@ -37,6 +37,7 @@ class App extends React.Component {
         this.setState({
             currentID : id
         });
+        this.hideIFrame();
     }
 
     insertCallback(value)
@@ -45,10 +46,12 @@ class App extends React.Component {
             currentID: this.state.currentID,
             insert: value
         });
+        this.hideIFrame();
     }
 
     hideIFrame()
     {
+        console.log("whatever");
         var elem = document.getElementById("powerbi_div");
         elem.style.display = 'none';
     }
@@ -62,7 +65,7 @@ class App extends React.Component {
                     <Container maxWidth="lg"  alignContent={'center'}>
                         <Grid container spacing={4} >
                             <Grid item xs={12}>
-                                <Header name={"Marius"} />
+                                <Header name={"Marius"} handler={this.hideIFrame}/>
                             </Grid>
                         </Grid>
 
@@ -70,11 +73,11 @@ class App extends React.Component {
                             <Grid item lg={9} >
                                 <Switch>
                                     <Route exact path="/">
-                                        <Pupils size={2} idHandler={this.updateCurrentId} />
+                                        <Pupils size={2} idHandler={this.updateCurrentId}/>
                                     </Route>
 
                                     <Route exact path="/user" >
-                                        <User id={this.state.currentID} insertHandler={this.insertCallback} onClick={this.hideIFrameHandle} />
+                                        <User id={this.state.currentID} insertHandler={this.insertCallback}  />
                                     </Route>
 
                                     <Route exact path="/user/insert" >
