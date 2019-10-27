@@ -45,7 +45,7 @@ class User extends React.Component
     render()
     {
         return (
-            <Box component="div" style={{background: "white"}}>
+            <Box component="div" style={{background: "white", width: "100%"}}>
                 <Grid container spacing={0} alignItems="flex-start">
                     <Grid item lg={12}>
                         <h1>{this.state.user.Nickname}</h1>
