@@ -18,6 +18,9 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import AccessAlarms from '@material-ui/icons/AccessAlarms';
 import BNInput from './BNInput';
+import Button from '@material-ui/core/Button';
+import AddIcon from '@material-ui/icons/Add';
+import Box from '@material-ui/core/Box';
 
 class App extends React.Component {
     constructor(props)
@@ -64,7 +67,7 @@ class App extends React.Component {
                     <Container maxWidth="lg"  alignContent={'center'}>
                         <Grid container spacing={4} >
                             <Grid item xs={12}>
-                                <Header name={"Marius"} handler={this.hideIFrame}/>
+                                <Header name={"Marvin"} handler={this.hideIFrame}/>
                             </Grid>
                         </Grid>
 
@@ -85,41 +88,52 @@ class App extends React.Component {
                                 </Switch>
                             </Grid>
                             <Grid item lg={3} style={{display: "flex"}}>
-                                <List style={{background: "#fff", width: "100%"}}>
-                                    <h2>Termine</h2>
-                                    <ListItem>
-                                        <ListItemAvatar>
-                                            <Avatar>
-                                                <AccessAlarms />
-                                            </Avatar>
-                                        </ListItemAvatar>
-                                        <ListItemText primary="2. Prognose fällig" secondary="9. Jan 2019" />
-                                    </ListItem>
-                                    <ListItem>
-                                        <ListItemAvatar>
-                                            <Avatar>
-                                                <AccessAlarms />
-                                            </Avatar>
-                                        </ListItemAvatar>
-                                        <ListItemText primary="3. Prognose fällig" secondary="7. Jan 2019" />
-                                    </ListItem>
-                                    <ListItem>
-                                        <ListItemAvatar>
-                                            <Avatar>
-                                                <AccessAlarms />
-                                            </Avatar>
-                                        </ListItemAvatar>
-                                        <ListItemText primary="4. Prognose fällig" secondary="20. July 2019" />
-                                    </ListItem>
-                                    <ListItem>
-                                        <ListItemAvatar>
-                                            <Avatar>
-                                                <AccessAlarms />
-                                            </Avatar>
-                                        </ListItemAvatar>
-                                        <ListItemText primary="5. Prognose fällig" secondary="14. August 2019" />
-                                    </ListItem>
-                                </List>
+                                <Grid container >
+                                    <Grid item lg={12}>
+                                        <List style={{background: "#fff", width: "100%"}}>
+                                            <h2>Termine</h2>
+                                            <ListItem>
+                                                <ListItemAvatar>
+                                                    <Avatar>
+                                                        <AccessAlarms />
+                                                    </Avatar>
+                                                </ListItemAvatar>
+                                                <ListItemText primary="2. Prognose fällig" secondary="9. Jan 2019" />
+                                            </ListItem>
+                                            <ListItem>
+                                                <ListItemAvatar>
+                                                    <Avatar>
+                                                        <AccessAlarms />
+                                                    </Avatar>
+                                                </ListItemAvatar>
+                                                <ListItemText primary="3. Prognose fällig" secondary="7. Jan 2019" />
+                                            </ListItem>
+                                            <ListItem>
+                                                <ListItemAvatar>
+                                                    <Avatar>
+                                                        <AccessAlarms />
+                                                    </Avatar>
+                                                </ListItemAvatar>
+                                                <ListItemText primary="4. Prognose fällig" secondary="20. July 2019" />
+                                            </ListItem>
+                                            <ListItem>
+                                                <ListItemAvatar>
+                                                    <Avatar>
+                                                        <AccessAlarms />
+                                                    </Avatar>
+                                                </ListItemAvatar>
+                                                <ListItemText primary="5. Prognose fällig" secondary="14. August 2019" />
+                                            </ListItem>
+                                        </List>
+                                    </Grid>
+                                    <Grid item lg={12}>
+                                        <Box component="div">
+                                            <Button variant="contained" color="primary">
+                                                <AddIcon />
+                                            </Button>
+                                        </Box>
+                                    </Grid>
+                                </Grid>
                             </Grid>
                         </Grid>
 
