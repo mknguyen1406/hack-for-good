@@ -7,8 +7,7 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
 
-// const API_URL = "http://ec2-52-59-253-229.eu-central-1.compute.amazonaws.com:5000/pupils?fellow_id=1";
-const API_URL = "http://127.0.0.0:5000/pupils?fellow_id=1";
+const API_URL = "http://ec2-52-59-253-229.eu-central-1.compute.amazonaws.com:5000/pupils?fellow_id=1";
 
 class User extends React.Component
 {
@@ -40,7 +39,7 @@ class User extends React.Component
         // und state.user.ID ist undefined
         fetch(new URL(API_URL))
             .then(res => res.json())
-            .then(data => console.log(data)); // #B80014
+            .then(data => this.setUserProps(data)); // #B80014
     }
 
     render()
