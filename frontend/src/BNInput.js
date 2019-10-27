@@ -248,6 +248,9 @@ class BNInput extends React.Component {
                         An PM senden
                     </SendButton>
                 </Link>}
+                    {!this.is_validate() && <SendButton variant="contained" color="primary" onClick={this.onSend}>
+                        An PM senden
+                    </SendButton>}
 
                 </div>
 
