@@ -25,13 +25,15 @@ const MySelect = styled(Select)({
 });
 
 
-
 const label = {
     float: "left",
     textAlign: "left",
     marginRight: "10px"
 };
 
+const errorStyle = {
+    color: "#db2269",
+};
 
 
 class BNInputComp extends React.Component {
@@ -51,6 +53,7 @@ class BNInputComp extends React.Component {
                     margin="normal"
                     value={this.props.value}
                 /></td>
+                <td>{this.props.activateErrors && this.props.value === '' && <span style={errorStyle}>Hier fehlt noch eine Eingabe</span>}</td>
             </tr>
         } if (this.props.type === 'number') {
             return <tr>

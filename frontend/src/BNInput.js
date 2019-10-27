@@ -77,6 +77,7 @@ class BNInput extends React.Component {
             this.state["Noch aktiv"] = '';
         }
         this.state['date'] = 1;
+        this.state['triedSend'] = false;
     }
     
     indexIn1D(name, list) {
@@ -126,6 +127,15 @@ class BNInput extends React.Component {
         };
 
         console.log(convertedState);
+
+        this.setState({triedSend: true});
+
+        for (var key in this.state){
+            if (this.state[key] === '') {
+                // at least one invalid input
+                return;
+            }
+        }
 
         const response = fetch(API_URL_POST, {
             method: 'POST',
@@ -181,43 +191,43 @@ class BNInput extends React.Component {
                         </td>
                     </tr>
 
-                <BNInputComp value={this.state["Noch aktiv"]} name={"Noch aktiv"} type={"select"} options={this.choicesBinaryn} handleChange={this.handleChangeComp}/>
+                <BNInputComp activateErrors={this.state.triedSend} value={this.state["Noch aktiv"]} name={"Noch aktiv"} type={"select"} options={this.choicesBinaryn} handleChange={this.handleChangeComp}/>
 
                 <h3 style={subTitleMargin}>Leistungen in den Hautpfächern</h3>
 
                 {this.mainSubjects.map((name) =>
-                        <BNInputComp value={this.state[name]} name={name} type={"number"} handleChange={this.handleChangeComp}/>
+                        <BNInputComp activateErrors={this.state.triedSend} value={this.state[name]} name={name} type={"number"} handleChange={this.handleChangeComp}/>
                         )}
 
                 <h3 style={subTitleMargin}>Sprachliche Kompetenz</h3>
                {this.verbalSkills.map((el) =>
-                    <BNInputComp value={this.state[el.name]} name={el.name} type={"select"} options={el.choices} handleChange={this.handleChangeComp}/>
+                    <BNInputComp activateErrors={this.state.triedSend} value={this.state[el.name]} name={el.name} type={"select"} options={el.choices} handleChange={this.handleChangeComp}/>
                 )}
 
                 <h3 style={subTitleMargin}>Handlungskompetenzen / Lernkulturmatrix (LKM)</h3>
                 <h4 style={subSubTitleMargin}>Sozialverhalten</h4>
                 {this.socialBehavior.map((el) =>
-                    <BNInputComp value={this.state[el.name]} name={el.name} type={"select"} options={el.choices} handleChange={this.handleChangeComp}/>
+                    <BNInputComp activateErrors={this.state.triedSend} value={this.state[el.name]} name={el.name} type={"select"} options={el.choices} handleChange={this.handleChangeComp}/>
                 )}
 
                 <h4 style={subSubTitleMargin}>Lern- und Arbeitsverhalten</h4>
                 {this.learningBehavior.map((el) =>
-                    <BNInputComp value={this.state[el.name]} name={el.name} type={"select"} options={el.choices} handleChange={this.handleChangeComp}/>
+                    <BNInputComp activateErrors={this.state.triedSend} value={this.state[el.name]} name={el.name} type={"select"} options={el.choices} handleChange={this.handleChangeComp}/>
                 )}
 
                 <h3 style={subTitleMargin}>Elternarbeit & Fehlzeiten</h3>
                 {this.parentsAbsences.map((el) =>
-                    <BNInputComp value={this.state[el]} name={el} type={"freetext"} handleChange={this.handleChangeComp}/>
+                    <BNInputComp activateErrors={this.state.triedSend} value={this.state[el]} name={el} type={"freetext"} handleChange={this.handleChangeComp}/>
                 )}
 
                 <h3 style={subTitleMargin}>Zukunft</h3>
                 {this.future.map((el) =>
-                    <BNInputComp value={this.state[el]} name={el} type={"freetext"} handleChange={this.handleChangeComp}/>
+                    <BNInputComp activateErrors={this.state.triedSend} value={this.state[el]} name={el} type={"freetext"} handleChange={this.handleChangeComp}/>
                 )}
 
                 <h3 style={subTitleMargin}>Sicherer Übergang | Übergangsprognose</h3>
                 {this.prognosis.map((el) =>
-                    <BNInputComp value={this.state[el.name]} name={el.name} type={"select"} options={el.choices} handleChange={this.handleChangeComp}/>
+                    <BNInputComp activateErrors={this.state.triedSend} value={this.state[el.name]} name={el.name} type={"select"} options={el.choices} handleChange={this.handleChangeComp}/>
                 )}
 
                 </tbody></table>
