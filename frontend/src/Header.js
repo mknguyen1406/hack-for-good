@@ -32,8 +32,8 @@ const useStyles = makeStyles(theme => ({
 function Header(props) {
     const classes = useStyles();
     return (
-        <div className={classes.grow}>
-            <AppBar position="static" color={'secondary'}>
+        <div className={classes.grow} >
+            <AppBar position="static" color={'inherit'} style={{background: "#B80014"}}>
                 <Toolbar >
                     <Typography className={classes.title} variant="h6" noWrap>
                         <Link to="/" underline={"none"} className={classes.title_name} style={{textDecoration: 'none', color: "white"}} >
@@ -44,7 +44,7 @@ function Header(props) {
                     <div className={classes.sectionDesktop}>
                         <Icon
                             edge="end"
-                            color="inherit">
+                            color="white    ">
                             <AccountCircle />
                         </Icon>
                     </div>
