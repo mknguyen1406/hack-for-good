@@ -51,7 +51,6 @@ class App extends React.Component {
 
     hideIFrame()
     {
-        console.log("whatever");
         var elem = document.getElementById("powerbi_div");
         elem.style.display = 'none';
     }

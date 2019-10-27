@@ -39,7 +39,7 @@ class User extends React.Component
         // und state.user.ID ist undefined
         fetch(new URL(API_URL))
             .then(res => res.json())
-            .then(data => this.setUserProps(data));
+            .then(data => this.setUserProps(data)); // #B80014
     }
 
     render()

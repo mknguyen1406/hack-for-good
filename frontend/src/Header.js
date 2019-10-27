@@ -33,8 +33,8 @@ function Header(props) {
     const classes = useStyles();
     return (
         <div className={classes.grow}>
-            <AppBar position="static">
-                <Toolbar>
+            <AppBar position="static" color={'secondary'}>
+                <Toolbar >
                     <Typography className={classes.title} variant="h6" noWrap>
                         <Link to="/" underline={"none"} className={classes.title_name} style={{textDecoration: 'none', color: "white"}} >
                             Herzlich Willkommen {props.name}!
