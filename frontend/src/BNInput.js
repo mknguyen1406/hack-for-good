@@ -11,6 +11,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import styles from './App.css';
 import { styled } from '@material-ui/core/styles';
+import {Link} from 'react-router-dom';
 
 
 
@@ -210,9 +211,11 @@ class BNInput extends React.Component {
                     <BNInputComp value={this.state[el.name]} name={el.name} type={"select"} options={el.choices} handleChange={this.handleChangeComp}/>
                 )}</tbody></table>
 
-                <SendButton variant="contained" color="primary" onClick={this.onSend}>
-                    An PM senden
-                </SendButton>
+                <Link to="/user">
+                    <SendButton variant="contained" color="primary" onClick={this.onSend}>
+                        An PM senden
+                    </SendButton>
+                </Link>
 
             </Container>
         );

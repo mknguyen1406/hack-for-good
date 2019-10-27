@@ -36,7 +36,7 @@ function Header(props) {
             <AppBar position="static">
                 <Toolbar>
                     <Typography className={classes.title} variant="h6" noWrap>
-                        <Link to="/" underline={"none"} className={classes.title_name}>
+                        <Link to="/" underline={"none"} className={classes.title_name} style={{textDecoration: 'none', color: "white"}}>
                             Herzlich Willkommen {props.name}!
                         </Link>
                     </Typography>

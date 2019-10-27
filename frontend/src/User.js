@@ -1,10 +1,11 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
-import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import Card from '@material-ui/core/Card';
-import Paper from '@material-ui/core/Paper';
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const API_URL = "http://127.0.0.1:5000/pupils?fellow_id=1";
 
@@ -44,40 +45,44 @@ class User extends React.Component
     render()
     {
         return (
-            <Grid container spacing={4}>
-                <Grid item lg={12}>
-                    <h1>{this.state.user.Nickname}</h1>
+            <Box component="div" style={{background: "white"}}>
+                <Grid container spacing={0} alignItems="flex-start">
+                    <Grid item lg={12}>
+                        <h1>{this.state.user.Nickname}</h1>
+                    </Grid>
                 </Grid>
 
-                <Grid item lg={3}>
-                    <Card>
-                    <p>Stadt: {this.state.user.City}</p>
-                    </Card>
+                <Grid container spacing={4} justify={'center'}>
+                    <Grid item lg={3}>
+                        <Card style={{height: '80px'}}>
+                        <p>Stadt: {this.state.user.City}</p>
+                        </Card>
+                    </Grid>
+
+                    <Grid item lg={3}>
+                        <Card style={{height: '80px'}}>
+                        <p>Schule: {this.state.user.School} </p>
+                        </Card>
+                    </Grid>
+
+                    <Grid item lg={3}>
+                        <Card style={{height: '80px'}}>
+                        <p>Klasse: {this.state.user.Class}</p>
+                        </Card>
+                    </Grid>
+
+                    <Grid item lg={1}>
+                        <Link to="/user/insert" onClick={() => this.props.insertHandler(1)}>
+                            <Tooltip title="Beobachtungsnotiz hinzufügen" aria-label="hinzufügen">
+                                <Button variant="contained" color="primary" style={{position: 'absolute'}}>
+                                    <AddIcon />
+                                </Button>
+                            </Tooltip>
+                        </Link>
+                    </Grid>
+
                 </Grid>
-
-                <Grid item lg={3}>
-                    <Card>
-                    <p>Schule: {this.state.user.School} </p>
-                    </Card>
-                </Grid>
-
-                <Grid item lg={3}>
-                    <Card>
-                    <p>Klasse: {this.state.user.Class}</p>
-                    </Card>
-                </Grid>
-
-                <Grid item lg={3}>
-                    <Link to="/user/insert" onClick={() => this.props.insertHandler(1)}>
-                        <Fab color="primary">
-                            <AddIcon />
-                        </Fab>
-                    </Link>
-                </Grid>
-
-
-
-            </Grid>
+            </Box>
         );
     }
 
