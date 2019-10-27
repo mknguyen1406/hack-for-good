@@ -5,7 +5,6 @@ import json
 import mysql.connector
 from mysql.connector import errorcode
 
-
 app = Flask(__name__)
 
 CORS(app) # allow cross-origin requests
@@ -85,29 +84,46 @@ def post_evaluation():
     fehlzeiten = request.get_json('fehlzeiten')['fehlzeiten']
 
     berufsorientierung_state = request.get_json('berufsorientierung_state')['berufsorientierung_state']
-    berufsorientierung_comment = request.get_json('elternkontakt_comment')['elternkontakt_comment']
+    berufsorientierung_comment = request.get_json('berufsorientierung_comment')['berufsorientierung_comment']
     uebergangsprognose = request.get_json('uebergangsprognose')['uebergangsprognose']
-    active = request.get_json('active')['active']
+    active = 1
 
     # commit according to https://stackoverflow.com/questions/5687718/how-can-i-insert-data-into-a-mysql-database
     try:
+        print(f"INSERT INTO evaluation (Fellow_ID, Student_ID, Time, Mathe, Englisch, Deutsch, Weiteres_Fach,"
+                       f"Hoeren, Sprechen, Schreiben, Lesen, "
+                       f"Selbstvertrauen, Teamdenken, Reflexionsfaehigkeit, Regeleinhaltung, Hilfsbereitschaft, Konfliktverhalten,"
+                       f"Motivation, Lernziele,"
+                       f"Elternkontakt_Date, Elternkontakt_Comment, Fehlzeiten,"
+                       f"Berufsorientierung_State, Berufsorientierung_Comment,"
+                       f"Uebergangsprognose, Active, Kommentar)"
+                       f"VALUES ({fellow_id},{pupil_id},{timestamp}, {mathe}, {englisch}, {deutsch}, {weiteres_fach}, "
+                       f"{hoeren}, {sprechen}, {schreiben}, {lesen}, "
+                       f"{selbstvertrauen}, {teamdenken}, {reflexionsfaehigkeit}, {regeleinhaltung}, {hilfsbereitschaft}, {konfliktverhalten}, "
+                       f"{motivation}, {lernziele},"
+                       f"{elternkontakt_date}, '{elternkontakt_comment}', {fehlzeiten},"
+                       f"{berufsorientierung_state}, '{berufsorientierung_comment}',"
+                       f"'{uebergangsprognose}' ,{active}, 'Kommentar')")
         cursor.execute(f"INSERT INTO evaluation (Fellow_ID, Student_ID, Time, Mathe, Englisch, Deutsch, Weiteres_Fach,"
                        f"Hoeren, Sprechen, Schreiben, Lesen, "
                        f"Selbstvertrauen, Teamdenken, Reflexionsfaehigkeit, Regeleinhaltung, Hilfsbereitschaft, Konfliktverhalten,"
                        f"Motivation, Lernziele,"
                        f"Elternkontakt_Date, Elternkontakt_Comment, Fehlzeiten,"
                        f"Berufsorientierung_State, Berufsorientierung_Comment,"
-                       f"Uebergangsprognose, Active)"
+                       f"Uebergangsprognose, Active, Kommentar)"
                        f"VALUES ({fellow_id},{pupil_id},{timestamp}, {mathe}, {englisch}, {deutsch}, {weiteres_fach}, "
                        f"{hoeren}, {sprechen}, {schreiben}, {lesen}, "
                        f"{selbstvertrauen}, {teamdenken}, {reflexionsfaehigkeit}, {regeleinhaltung}, {hilfsbereitschaft}, {konfliktverhalten}, "
                        f"{motivation}, {lernziele},"
-                       f"{elternkontakt_date}, {elternkontakt_comment}, {fehlzeiten},"
-                       f"{berufsorientierung_state}, {berufsorientierung_comment},"
-                       f"{uebergangsprognose},{active})")
+                       f"'{elternkontakt_date}', '{elternkontakt_comment}', {fehlzeiten},"
+                       f"{berufsorientierung_state}, '{berufsorientierung_comment}',"
+                       f"'{uebergangsprognose}' ,{active}, 'Kommentar')")
+        print(cursor.rowcount, "record inserted.")               
         conn.commit()
+        print(cursor.rowcount, "record inserted.")
         return 'Success'
     except BaseException as e:
+        print(e)
         conn.rollback()
         return 'Error'
 
