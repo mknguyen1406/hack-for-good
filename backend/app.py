@@ -22,9 +22,7 @@ def get_pupils():
     for result in pupils:
         json_data.append(dict(zip(row_headers,result)))
 
-    resp = json.dumps(json_data)
-    resp.headers.add('Access-Control-Allow-Origin', '*')
-    return json.dumps(resp)
+    return json.dumps(json_data)
 
 @app.route("/fellows", methods=['GET'])
 def get_fellows():
