@@ -149,9 +149,7 @@ class BNInput extends React.Component {
             float: "left"
         };
         const selectMargin = {
-            marginBlockStart: "20px",
-            marginBlockEnd: "20px",
-            marginLeft: "10px"
+            width: "200px"
         };
         const subTitleMargin = {
             marginBlockStart: "40px",
@@ -164,8 +162,13 @@ class BNInput extends React.Component {
         // todo make more points of time selectable
         return (
             <Container maxWidth="sm">
-                <div>
-                <h2 style={titleMargin}>Neue Bewertung für Zeitpunkt </h2>
+                    <table><tbody>
+                    <tr>
+                    <td>
+
+                    <h2 style={titleMargin}>Neue Bewertung für Zeitpunkt </h2>
+                    </td>
+                        <td>
                 <Select inputProps={{
                     value: this.state.date
                 }} style={selectMargin} className={styles.title} onChange={e => this.handleChangeComp('date', e.target.value)}>
@@ -175,12 +178,12 @@ class BNInput extends React.Component {
                     <MenuItem value={4}>4 | Halbjahr 2. SJ</MenuItem>
                     <MenuItem value={5}>5 | Ende 2. SJ</MenuItem>
                 </Select>
-                </div>
+                        </td>
+                    </tr>
 
                 <BNInputComp value={this.state["Noch aktiv"]} name={"Noch aktiv"} type={"select"} options={this.choicesBinaryn} handleChange={this.handleChangeComp}/>
 
                 <h3 style={subTitleMargin}>Leistungen in den Hautpfächern</h3>
-                <table><tbody>
 
                 {this.mainSubjects.map((name) =>
                         <BNInputComp value={this.state[name]} name={name} type={"number"} handleChange={this.handleChangeComp}/>
