@@ -179,6 +179,7 @@ class BNInput extends React.Component {
         // todo make more points of time selectable
         return (
             <Container maxWidth="lg" style={{background: "white"}}>
+                <div>
                     <table><tbody>
                     <tr>
                     <td>
@@ -244,6 +245,7 @@ class BNInput extends React.Component {
                     An PM senden
                 </SendButton>
 
+                </div>
 
             </Container>
         );
