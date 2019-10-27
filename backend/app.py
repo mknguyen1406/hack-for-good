@@ -9,6 +9,14 @@ app = Flask(__name__)
 
 CORS(app) # allow cross-origin requests
 
+# Obtain connection string information from the portal
+config = {
+    'host':'hfg-db-server.mysql.database.azure.com',
+    'user':'ksritter@hfg-db-server',
+    'password':'h4forgood!',
+    'database':'ksritter'
+}
+
 @app.route("/pupils", methods=['GET'])
 def get_pupils():
      # Construct connection string
@@ -28,7 +36,7 @@ def get_pupils():
     fellow_id = int(request.args.get("fellow_id"))
 
     # load pupils from database
-    cursor.execute(f"SELECT * FROM pupil p INNER JOIN evaluation e ON p.ID = e.Student_ID WHERE e.Active = 1 AND p.Fellow_ID={fellow_id}")
+    cursor.execute(f"SELECT DISTINCT p.* FROM pupil p INNER JOIN evaluation e ON p.ID = e.Student_ID WHERE e.Active = 1 AND p.Fellow_ID={fellow_id}")
     row_headers = [x[0] for x in cursor.description]
     pupils = cursor.fetchall()
     json_data = []
@@ -171,7 +179,7 @@ def post_evaluation():
                        f"'{elternkontakt_date}', '{elternkontakt_comment}', {fehlzeiten},"
                        f"{berufsorientierung_state}, '{berufsorientierung_comment}',"
                        f"'{uebergangsprognose}' ,{active}, 'Kommentar')")
-        print(cursor.rowcount, "record inserted.")               
+        print(cursor.rowcount, "record inserted.")
         conn.commit()
         print(cursor.rowcount, "record inserted.")
         return 'Success'
@@ -208,12 +216,4 @@ def get_evaluations():
     return json.dumps(json_data)
 
 if __name__ == "__main__":
-    # Obtain connection string information from the portal
-    config = {
-        'host':'hfg-db-server.mysql.database.azure.com',
-        'user':'ksritter@hfg-db-server',
-        'password':'h4forgood!',
-        'database':'ksritter'
-    }
-
     app.run(host='0.0.0.0', debug=True)
