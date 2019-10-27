@@ -6,7 +6,7 @@ import AddIcon from '@material-ui/icons/Add';
 import Card from '@material-ui/core/Card';
 import Paper from '@material-ui/core/Paper';
 
-const API_URL = "http://127.0.0.1:5000/pupils?fellow_id=1";
+const API_URL = "http://ec2-52-59-253-229.eu-central-1.compute.amazonaws.com:5000/pupils?fellow_id=1";
 
 class User extends React.Component
 {
