@@ -69,7 +69,7 @@ class App extends React.Component {
                         </Grid>
 
                         <Grid container spacing={2} justify={'center'} alignItems={'stretch'} direction="row">
-                            <Grid item lg={9} >
+                            <Grid item lg={9} style={{display: "flex"}}>
                                 <Switch>
                                     <Route exact path="/">
                                         <Pupils size={2} idHandler={this.updateCurrentId}/>
