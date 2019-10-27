@@ -29,6 +29,7 @@ class App extends React.Component {
         };
         this.updateCurrentId = this.updateCurrentId.bind(this);
         this.insertCallback = this.insertCallback.bind(this);
+        this.hideIFrameHandle = this.hideIFrame.bind(this);
     }
 
     updateCurrentId(id)
@@ -46,28 +47,34 @@ class App extends React.Component {
         });
     }
 
+    hideIFrame()
+    {
+        var elem = document.getElementById("powerbi_div");
+        elem.style.display = 'none';
+    }
+
     render()
     {
         return (
             <Router>
                 <div className="App">
                     <CssBaseline/>
-                    <Container maxWidth="lg">
-                        <Grid container spacing={10}>
+                    <Container maxWidth="lg"  alignContent={'center'}>
+                        <Grid container spacing={4} >
                             <Grid item xs={12}>
                                 <Header name={"Marius"} />
                             </Grid>
                         </Grid>
 
-                        <Grid container spacing={2}>
-                            <Grid item lg={9} style={{background: "#fff"}}>
+                        <Grid container spacing={2} justify={'center'} alignItems={'stretch'} direction="row">
+                            <Grid item lg={9} >
                                 <Switch>
                                     <Route exact path="/">
-                                        <Pupils size={3} idHandler={this.updateCurrentId} />
+                                        <Pupils size={2} idHandler={this.updateCurrentId} />
                                     </Route>
 
                                     <Route exact path="/user" >
-                                        <User id={this.state.currentID} insertHandler={this.insertCallback}/>
+                                        <User id={this.state.currentID} insertHandler={this.insertCallback} onClick={this.hideIFrameHandle} />
                                     </Route>
 
                                     <Route exact path="/user/insert" >
@@ -76,7 +83,7 @@ class App extends React.Component {
                                 </Switch>
                             </Grid>
                             <Grid item lg={3}>
-                                <List style={{background: "#fff", width: "100%", maxWidth: "360px"}}>
+                                <List style={{background: "#fff"}}>
                                     <h2>Termine</h2>
                                     <ListItem>
                                         <ListItemAvatar>
@@ -113,6 +120,17 @@ class App extends React.Component {
                                 </List>
                             </Grid>
                         </Grid>
+
+                        <div id={"powerbi_div"}>
+                            <Grid container spacing={10} justify={'center'}>
+                                <Grid item lg={12}>
+                                    <iframe width="100%" height="720px"
+                                            src="https://app.powerbi.com/view?r=eyJrIjoiMDY2YzVkNzktMmViNi00NTMwLWEyMDEtM2ViMDliMTVjYjE0IiwidCI6IjIxNjg0NGRjLTljOTAtNDk0OS04ZTRiLTU4ZWEyZDJjM2RiZSIsImMiOjh9"
+                                            frameBorder="0" allowFullScreen="true"></iframe>
+                                </Grid>
+                            </Grid>
+                        </div>
+
                     </Container>
                 </div>
             </Router>
