@@ -178,7 +178,7 @@ class BNInput extends React.Component {
 
         // todo make more points of time selectable
         return (
-            <Container maxWidth="sm">
+            <Container maxWidth="lg" style={{background: "white"}}>
                     <table><tbody>
                     <tr>
                     <td>
