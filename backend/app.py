@@ -11,6 +11,19 @@ CORS(app) # allow cross-origin requests
 
 @app.route("/pupils", methods=['GET'])
 def get_pupils():
+     # Construct connection string
+    try:
+        conn = mysql.connector.connect(**config)
+        print("Connection established")
+    except mysql.connector.Error as err:
+        if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
+            print("Something is wrong with the user name or password")
+        elif err.errno == errorcode.ER_BAD_DB_ERROR:
+            print("Database does not exist")
+        else:
+            print(err)
+    else:
+        cursor = conn.cursor()
     # get fellow id from HTTP body
     fellow_id = int(request.args.get("fellow_id"))
 
@@ -26,6 +39,19 @@ def get_pupils():
 
 @app.route("/fellows", methods=['GET'])
 def get_fellows():
+     # Construct connection string
+    try:
+        conn = mysql.connector.connect(**config)
+        print("Connection established")
+    except mysql.connector.Error as err:
+        if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
+            print("Something is wrong with the user name or password")
+        elif err.errno == errorcode.ER_BAD_DB_ERROR:
+            print("Database does not exist")
+        else:
+            print(err)
+    else:
+        cursor = conn.cursor()
     # get manager id from HTTP body
     manager_name =  request.args.get("manager_name")
 
@@ -40,6 +66,19 @@ def get_fellows():
 
 @app.route("/pupil", methods=['GET'])
 def get_pupil():
+     # Construct connection string
+    try:
+        conn = mysql.connector.connect(**config)
+        print("Connection established")
+    except mysql.connector.Error as err:
+        if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
+            print("Something is wrong with the user name or password")
+        elif err.errno == errorcode.ER_BAD_DB_ERROR:
+            print("Database does not exist")
+        else:
+            print(err)
+    else:
+        cursor = conn.cursor()
     # get pupil id from HTTP body
     pupil_id = request.args.get("pupil_id")
 
@@ -55,6 +94,19 @@ def get_pupil():
 
 @app.route("/evaluation", methods=['POST'])
 def post_evaluation():
+     # Construct connection string
+    try:
+        conn = mysql.connector.connect(**config)
+        print("Connection established")
+    except mysql.connector.Error as err:
+        if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
+            print("Something is wrong with the user name or password")
+        elif err.errno == errorcode.ER_BAD_DB_ERROR:
+            print("Database does not exist")
+        else:
+            print(err)
+    else:
+        cursor = conn.cursor()
     fellow_id = request.get_json('fellow_id')['fellow_id']
     pupil_id = request.get_json('pupil_id')['pupil_id']
     timestamp = request.get_json('time')['time']
@@ -133,34 +185,7 @@ def post_evaluation():
 
 @app.route("/evaluations", methods=['GET'])
 def get_evaluations():
-    fellow_id = request.args.get("fellow_id") # Fellow_ID
-    cursor.execute(f"SELECT * FROM evaluation WHERE Fellow_ID = {fellow_id}")
-    row_headers = [x[0] for x in cursor.description]
-    evaluations = cursor.fetchall()
-    json_data = []
-    for result in evaluations:
-        json_data.append(dict(zip(row_headers,result)))
-    return json.dumps(json_data)
-
-@app.route("/region_data", methods=['GET'])
-def load_region_data():
-    # get region from HTTP body
-    region = request.get_json('region')['region']
-
-    # load data from database
-    data = []
-    return json.dumps(region)
-
-if __name__ == "__main__":
-    # Obtain connection string information from the portal
-    config = {
-        'host':'hfg-db-server.mysql.database.azure.com',
-        'user':'ksritter@hfg-db-server',
-        'password':'h4forgood!',
-        'database':'ksritter'
-    }
-
-    # Construct connection string
+     # Construct connection string
     try:
         conn = mysql.connector.connect(**config)
         print("Connection established")
@@ -173,4 +198,22 @@ if __name__ == "__main__":
             print(err)
     else:
         cursor = conn.cursor()
+    fellow_id = request.args.get("fellow_id") # Fellow_ID
+    cursor.execute(f"SELECT * FROM evaluation WHERE Fellow_ID = {fellow_id}")
+    row_headers = [x[0] for x in cursor.description]
+    evaluations = cursor.fetchall()
+    json_data = []
+    for result in evaluations:
+        json_data.append(dict(zip(row_headers,result)))
+    return json.dumps(json_data)
+
+if __name__ == "__main__":
+    # Obtain connection string information from the portal
+    config = {
+        'host':'hfg-db-server.mysql.database.azure.com',
+        'user':'ksritter@hfg-db-server',
+        'password':'h4forgood!',
+        'database':'ksritter'
+    }
+
     app.run(host='0.0.0.0', debug=True)
