@@ -26,7 +26,7 @@ const SendButton = styled(Button)({
 });
 
 
-const API_URL_POST = "http://127.0.0.1:5000/evaluation";
+const API_URL_POST = "http://ec2-52-59-253-229.eu-central-1.compute.amazonaws.com:5000/evaluation";
 
 
 class BNInput extends React.Component {
