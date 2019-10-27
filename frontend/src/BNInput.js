@@ -78,6 +78,8 @@ class BNInput extends React.Component {
         }
         this.state['date'] = 1;
         this.state['triedSend'] = false;
+        this.parentsAbsences.forEach(s => this.state[s] = '');
+        this.future.forEach(s => this.state[s] = '');
     }
     
     indexIn1D(name, list) {
