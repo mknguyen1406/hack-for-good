@@ -33,6 +33,7 @@ class App extends React.Component {
         this.updateCurrentId = this.updateCurrentId.bind(this);
         this.insertCallback = this.insertCallback.bind(this);
         this.hideIFrame = this.hideIFrame.bind(this);
+        this.showIFrame = this.showIFrame.bind(this);
     }
 
     updateCurrentId(id)
@@ -58,6 +59,12 @@ class App extends React.Component {
         elem.style.display = 'none';
     }
 
+    showIFrame()
+    {
+        var elem = document.getElementById("powerbi_div");
+        elem.style.display = 'block';
+    }
+
     render()
     {
         return (
@@ -67,7 +74,7 @@ class App extends React.Component {
                     <Container maxWidth="lg"  alignContent={'center'}>
                         <Grid container spacing={4} >
                             <Grid item xs={12}>
-                                <Header name={"Marvin"} handler={this.hideIFrame}/>
+                                <Header name={"Marvin"} handler={this.hideIFrame} handler2={this.showIFrame}/>
                             </Grid>
                         </Grid>
 
@@ -89,7 +96,6 @@ class App extends React.Component {
                             </Grid>
                             <Grid item lg={3} style={{display: "flex"}}>
                                 <Grid container >
-                                    <Grid item lg={12}>
                                         <List style={{background: "#fff", width: "100%"}}>
                                             <h2>Termine</h2>
                                             <ListItem>
@@ -124,15 +130,12 @@ class App extends React.Component {
                                                 </ListItemAvatar>
                                                 <ListItemText primary="5. Prognose fällig" secondary="14. August 2019" />
                                             </ListItem>
+                                            <ListItem>
+                                                <Button variant="contained" color="primary">
+                                                    <AddIcon />
+                                                </Button>
+                                            </ListItem>
                                         </List>
-                                    </Grid>
-                                    <Grid item lg={12}>
-                                        <Box component="div">
-                                            <Button variant="contained" color="primary">
-                                                <AddIcon />
-                                            </Button>
-                                        </Box>
-                                    </Grid>
                                 </Grid>
                             </Grid>
                         </Grid>

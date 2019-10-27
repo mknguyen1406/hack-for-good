@@ -36,7 +36,7 @@ function Header(props) {
             <AppBar position="static" color={'inherit'} style={{background: "#B80014"}}>
                 <Toolbar >
                     <Typography className={classes.title} variant="h6" noWrap>
-                        <Link to="/" underline={"none"} className={classes.title_name} style={{textDecoration: 'none', color: "white"}} >
+                        <Link to="/" underline={"none"} className={classes.title_name} style={{textDecoration: 'none', color: "white"}} onClick={props.handler2}>
                             Herzlich Willkommen {props.name}!
                         </Link>
                     </Typography>
@@ -45,7 +45,7 @@ function Header(props) {
                         <Icon
                             edge="end"
                             color="inherit"
-                            style={{fill: "white"}}>
+                            style={{color: "white"}}>
                             <AccountCircle />
                         </Icon>
                     </div>
