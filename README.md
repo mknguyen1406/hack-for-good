@@ -22,6 +22,10 @@ The database consists of the three tables that are automatically created from th
 | pupils | contains all the information regarding fellows' pupils |
 | evaluations | contains all evaluations fellow gave their pupils |
 
+## ETL pipeline
+
+The ETL pipeline (see `etl.py`) extracts all the data from existing Excel and csv files, transforms the data to pandas DataFrames getting enriched with the needed information and loads it into the defined database schema.
+
 ## Installation
 
 * Setup a MySQL database and edit the connection details in `dl.cfg`.
