@@ -15,7 +15,9 @@ config.read("../dl.cfg")
 
 @app.route("/pupils", methods=['GET'])
 def get_pupils():
-     # Construct connection string
+    """
+    Gets all pupils and the respective information for an individual fellow.
+    """
     try:
         conn = mysql.connector.connect(
             user=config["DB"]["USER"],
@@ -37,7 +39,8 @@ def get_pupils():
     fellow_id = int(request.args.get("fellow_id"))
 
     # load pupils from database
-    cursor.execute(f"SELECT DISTINCT p.* FROM pupils p INNER JOIN evaluations e ON p.ID = e.Student_ID WHERE e.Active = 1 AND p.Fellow_ID={fellow_id}")
+    cursor.execute(f"SELECT DISTINCT p.* FROM pupils p INNER JOIN evaluations e ON p.ID = e.Student_ID \
+        WHERE e.Active = 1 AND p.Fellow_ID={fellow_id}")
     row_headers = [x[0] for x in cursor.description]
     pupils = cursor.fetchall()
     json_data = []
@@ -49,9 +52,16 @@ def get_pupils():
 
 @app.route("/fellows", methods=['GET'])
 def get_fellows():
-     # Construct connection string
+    """
+    Gets all fellows and the respective information for a manager.
+    """
     try:
-        conn = mysql.connector.connect(**config)
+        conn = mysql.connector.connect(
+            user=config["DB"]["USER"],
+            password=config["DB"]["PASSWORD"],
+            host=config["DB"]["HOST"],
+            database=config["DB"]["DATABASE"]
+        )
         print("Connection established")
     except mysql.connector.Error as err:
         if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
@@ -63,7 +73,7 @@ def get_fellows():
     else:
         cursor = conn.cursor()
     # get manager id from HTTP body
-    manager_name =  request.args.get("manager_name")
+    manager_name = request.args.get("manager_name")
 
     # load fellows from database
     cursor.execute(f"SELECT * FROM fellow WHERE Program_Manager = {manager_name}")
@@ -77,9 +87,16 @@ def get_fellows():
 
 @app.route("/pupil", methods=['GET'])
 def get_pupil():
-     # Construct connection string
+    """
+    Gets individual information for one pupil.
+    """
     try:
-        conn = mysql.connector.connect(**config)
+        conn = mysql.connector.connect(
+            user=config["DB"]["USER"],
+            password=config["DB"]["PASSWORD"],
+            host=config["DB"]["HOST"],
+            database=config["DB"]["DATABASE"]
+        )
         print("Connection established")
     except mysql.connector.Error as err:
         if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
@@ -105,9 +122,16 @@ def get_pupil():
 
 @app.route("/evaluation", methods=['POST'])
 def post_evaluation():
-     # Construct connection string
+    """
+    Creates a new evaluation.
+    """
     try:
-        conn = mysql.connector.connect(**config)
+        conn = mysql.connector.connect(
+            user=config["DB"]["USER"],
+            password=config["DB"]["PASSWORD"],
+            host=config["DB"]["HOST"],
+            database=config["DB"]["DATABASE"]
+        )
         print("Connection established")
     except mysql.connector.Error as err:
         if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
@@ -152,7 +176,6 @@ def post_evaluation():
     uebergangsprognose = request.get_json('uebergangsprognose')['uebergangsprognose']
     active = 1
 
-    # commit according to https://stackoverflow.com/questions/5687718/how-can-i-insert-data-into-a-mysql-database
     try:
         print(f"INSERT INTO evaluation (Fellow_ID, Student_ID, Time, Mathe, Englisch, Deutsch, Weiteres_Fach,"
                        f"Hoeren, Sprechen, Schreiben, Lesen, "
@@ -192,13 +215,18 @@ def post_evaluation():
         return 'Error'
 
 
-    test = 0
-
 @app.route("/evaluations", methods=['GET'])
 def get_evaluations():
-     # Construct connection string
+    """
+    Gets all evaluations of an individual fellow.
+    """
     try:
-        conn = mysql.connector.connect(**config)
+        conn = mysql.connector.connect(
+            user=config["DB"]["USER"],
+            password=config["DB"]["PASSWORD"],
+            host=config["DB"]["HOST"],
+            database=config["DB"]["DATABASE"]
+        )
         print("Connection established")
     except mysql.connector.Error as err:
         if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
@@ -209,7 +237,7 @@ def get_evaluations():
             print(err)
     else:
         cursor = conn.cursor()
-    fellow_id = request.args.get("fellow_id") # Fellow_ID
+    fellow_id = request.args.get("fellow_id")
     cursor.execute(f"SELECT * FROM evaluation WHERE Fellow_ID = {fellow_id}")
     row_headers = [x[0] for x in cursor.description]
     evaluations = cursor.fetchall()
