@@ -31,7 +31,7 @@ def drop_tables():
     connection.close()
 
 
-def get_connection() -> Tuple[mysql.connector.connection, configparser.ConfigParser]:
+def get_connection() -> Tuple[mysql.connector.connection.MySQLConnection, configparser.ConfigParser]:
     """
     Gets a database connections together with the underlying configuration.
     """
