@@ -16,7 +16,7 @@ class User extends React.Component
         super(props);
         this.state = {
             user: "",
-            id: -1
+            id: this.props.id
         };
     }
 
@@ -25,7 +25,9 @@ class User extends React.Component
         let i;
         for (i = 0; i < data.length; i++)
         {
-            if (data[i].ID === this.props.id)
+            console.log(this.props.id);
+            console.log(localStorage.getItem( 'prop_id'));
+            if (data[i].ID === (localStorage.getItem( 'prop_id') || this.props.id))
             {
                 this.setState({user: data[i]});
             }
