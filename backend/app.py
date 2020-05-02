@@ -1,27 +1,28 @@
+import configparser
 from flask import Flask, request
 from flask_cors import CORS
-from flask_sqlalchemy import SQLAlchemy
 import json
 import mysql.connector
 from mysql.connector import errorcode
 
 app = Flask(__name__)
 
-CORS(app) # allow cross-origin requests
+CORS(app)  # allow cross-origin requests
 
-# Obtain connection string information from the portal
-config = {
-    'host':'hfg-db-server.mysql.database.azure.com',
-    'user':'ksritter@hfg-db-server',
-    'password':'h4forgood!',
-    'database':'ksritter'
-}
+config = configparser.ConfigParser()
+config.read("../dl.cfg")
+
 
 @app.route("/pupils", methods=['GET'])
 def get_pupils():
      # Construct connection string
     try:
-        conn = mysql.connector.connect(**config)
+        conn = mysql.connector.connect(
+            user=config["DB"]["USER"],
+            password=config["DB"]["PASSWORD"],
+            host=config["DB"]["HOST"],
+            database=config["DB"]["DATABASE"]
+        )
         print("Connection established")
     except mysql.connector.Error as err:
         if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
@@ -29,14 +30,14 @@ def get_pupils():
         elif err.errno == errorcode.ER_BAD_DB_ERROR:
             print("Database does not exist")
         else:
-            print(err)
+            print(f"Unexpected error: {err}")
     else:
         cursor = conn.cursor()
     # get fellow id from HTTP body
     fellow_id = int(request.args.get("fellow_id"))
 
     # load pupils from database
-    cursor.execute(f"SELECT DISTINCT p.* FROM pupil p INNER JOIN evaluation e ON p.ID = e.Student_ID WHERE e.Active = 1 AND p.Fellow_ID={fellow_id}")
+    cursor.execute(f"SELECT DISTINCT p.* FROM pupils p INNER JOIN evaluations e ON p.ID = e.Student_ID WHERE e.Active = 1 AND p.Fellow_ID={fellow_id}")
     row_headers = [x[0] for x in cursor.description]
     pupils = cursor.fetchall()
     json_data = []
@@ -44,6 +45,7 @@ def get_pupils():
         json_data.append(dict(zip(row_headers,result)))
 
     return json.dumps(json_data)
+
 
 @app.route("/fellows", methods=['GET'])
 def get_fellows():
@@ -71,6 +73,7 @@ def get_fellows():
     for result in fellows:
         json_data.append(dict(zip(row_headers,result)))
     return json.dumps(json_data)
+
 
 @app.route("/pupil", methods=['GET'])
 def get_pupil():
@@ -214,6 +217,7 @@ def get_evaluations():
     for result in evaluations:
         json_data.append(dict(zip(row_headers,result)))
     return json.dumps(json_data)
+
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', debug=True)
