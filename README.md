@@ -1,4 +1,4 @@
-# TechFirst Management Platform
+# TeachFirst Management Platform
 
 [TeachFirst](https://www.teachfirst.de) is a programme where scholars join focal schools supporting pupils. The current processes require a lot of manual work with filling out and evaluating large excel sheets. Thus, we implemented this central platform to ease the evaluation processes.
 
